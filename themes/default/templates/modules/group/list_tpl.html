@@ -1,0 +1,42 @@
+<{include file="theme:header_tpl.html" title_img="group"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<{yb_icon icon=group_add width=24}>&nbsp;<a href="<{yb_xhwlay_url mdl=group _event_=onList_Create}>"><{t}>Create New Group<{/t}></a><br /><br />
+
+<{yb_pager_slider_navi navi=$navi}>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>name<{/t}>&nbsp;-&nbsp;[<{t}>user count<{/t}>]</th>
+	<th><{t}>owner<{/t}></th>
+	<th><{t}>created at<{/t}></th>
+	<th><{t}>updated at<{/t}></th>
+	<th><{t}>operation<{/t}></th>
+</tr>
+<{foreach from=$groups item=group}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$group.id}></td>
+	<td class="<{$tmp_class}>" align="left"><{$group.name}>&nbsp;-&nbsp;[<{yb_array_count var=$group.mates}>]</td>
+	<td class="<{$tmp_class}>" align="left"><{$group.owner.name}>(<{$group.owner.id}>)</td>
+	<td class="<{$tmp_class}>" align="left"><{$group.created_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" align="left"><{$group.updated_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" >
+		<a href="<{yb_xhwlay_url mdl=group _event_=onList_Update id=$group.id}>" class="iconlink"><{yb_icon icon=group_edit alt='edit' width=24 class='link' title='edit' }></a>
+		&nbsp;&nbsp;
+		<a href="<{yb_xhwlay_url mdl=group _event_=onList_Delete id=$group.id}>" class="iconlink"><{yb_icon icon=group_delete alt='delete' width=24 class='link' title='delete' }></a>
+	</td>
+</tr>
+<{/foreach}>
+</table>
+
+<{yb_pager_sort_limit_navi navi=$navi}>
+
+<br />
+<{yb_icon icon=group_add width=24}>&nbsp;<a href="<{yb_xhwlay_url mdl=group _event_=onList_Create}>"><{t}>Create New Group<{/t}></a><br /><br />
+
+</div>
+<{include file="theme:footer_tpl.html"}>

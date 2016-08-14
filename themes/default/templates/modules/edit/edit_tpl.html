@@ -1,0 +1,49 @@
+<{include file="theme:header_tpl.html" title_img="data_edit" show_edit_menu=true data=$data}>
+<div class="contents_c" style="text-align: left;">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<div class="data_attrs_pre">
+id: <{$data.id}>&nbsp;<{t}>owner<{/t}>: <{if is_array($data.owner) }><{$data.owner.name}><{else}>unknown(user id=<{$data._owner_uid}>)<{/if}>&nbsp;&nbsp;&nbsp;
+<{t}>created at<{/t}>: <{$data.created_at|yb_strftime}><br />
+<{t}>category<{/t}>: <{foreach from=$data.categories item=category}><{$category.name}>&nbsp;<{/foreach}>
+</div>
+
+<div class="data_body">
+<form action="<{_YB key=current_url}>" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+
+<{$dtform|smarty:nodefaults}>
+
+<p>
+<{t}>Editor's ChangeLog<{/t}> : <br />
+<textarea name="changelog" rows="2" cols="64" wrap="soft"><{$changelog}></textarea><br />
+<{if $data.is_versions_moderated}>
+<span style="color: red;">NOTICE: <{t}>Version is moderated. Your change will be activated after owner or administrator approve.<{/t}>
+<{else}>
+<input type="radio" name="version_up" value="1" id="version_up_yes" <{if $version_up }>checked="checked"<{/if}> />
+<label for="version_up_yes"><{t}>Increments version number as new<{/t}></label><br />
+<input type="radio" name="version_up" value="0" id="version_up_no" <{if not $version_up }>checked="checked"<{/if}> />
+<label for="version_up_no"><{t}>Over write current version data<{/t}></label>
+&nbsp;<span style="color: red;">NOTICE: <{t}>You CAN'T restore current data, changelog<{/t}></span><br />
+<{/if}>
+</p>
+<input type="submit" value="<{t}>save<{/t}>" />&nbsp;<input type="reset" value="<{t}>reset<{/t}>" />
+</form>
+</div>
+
+<div class="data_attrs_post">
+<{t}>current version<{/t}> : <{$data.current_version_number}><br />
+<{t}>updated by<{/t}>: <{if $data.updated_by }><{$data.updated_by.name}><{else}>unknown(user id=<{$data.updated_by._updated_by_uid}>)<{/if}><br />
+<{t}>updated at<{/t}>: <{$data.updated_at|yb_strftime}><br />
+<{foreach from=$data._versions key=ver item=info}>
+	<{if $data.display_version_id ne $data.current_version_id }>
+		<{if $data.display_version_id eq $info.id}>md5:<{$info.md5}><br>sha1:<{$info.sha1}><br><{/if}>
+	<{else}>
+		<{if $data.current_version_id eq $info.id}>md5:<{$info.md5}><br>sha1:<{$info.sha1}><br><{/if}>
+	<{/if}>
+<{/foreach}>
+</div>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

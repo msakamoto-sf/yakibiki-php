@@ -1,0 +1,29 @@
+// $Id: HelpTop.txt 555 2009-07-18 05:18:03Z msakamoto-sf $
+* YakiBikiとは？
+
+YakiBikiはWikiCloneの１つです。
+YakiBikiではWikiページだけでなく、アップロードされた画像、添付ファイル、さらには簡易なBookmarkメモにまで、Web画面からカスタマイズ可能なアクセス制御リストを設定可能です。
+編集したい時は、編集したいページの上部にある「編集」アイコンリンクをクリックします。
+
+Wikiの書き方がはじめてでよく分からないなら[[SandBox]]で実際に書き換えてみましょう。
+[[SandBox]]はどんなにぐしゃぐしゃに書き換えても、消してしまっても問題ありません。たとえ何かがあっても他の誰かが直してくれます。
+
+* ヘルプページ一覧
+
+: &help(FAQ) : FAQ
+: &help(About_ACL) : 
+YakiBikiの提供するACL(アクセス制御リスト)の解説です。実際の設定例は &help(ACL_Examples) を参照して下さい。
+: &help(About_Template) : 
+「テンプレート」とテンプレートのタイトルに使える自動置換キーワードの解説です。
+: &help(WikiFormat) : 
+YakiBikiのWiki書式を紹介します。YakiBikiで利用可能なWikiプラグインは以下のヘルプページを参照して下さい。
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+//: &help(HowTo_MakeMyWikiPlugin) : 
+//YakiBiki用のWikiプラグインの作り方
+
+
+
+&br()
+&br()

@@ -1,0 +1,46 @@
+// $Id: About_Template.txt 456 2008-11-19 12:59:31Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+* What is "Template" in YakiBiki ?
+
+"Template" in YakiBiki is template data which inclulde ACL, categories presets.
+
+** Items in "Template" presets.
+
+You can assign following items when creating template.
+
+: name : A name of template itself.
+: title : A page title pre-configuration.
+: ACL : ACL pre-configuration.
+: category : Categories pre-selection.
+: moderated settings : Modelates pre-configuration.
+: (Data Types Specific) : When text data, you can set template text.
+
+
+** Special keywords you can embed into title.
+
+YakiBiki replaces special keywords in template title to creation datetime.
+
+| keyword | replaced to |H
+| {$now_ymd} | YYYYMMDD |
+| {$now_y/m/d} | YYYY/MM/DD |
+| {$now_y-m-d} | YYYY-MM-DD |
+| {$now_year} | YYYY |
+| {$now_month} | MM |
+| {$now_day} | DD |
+| {$now_hour} | hh |
+| {$now_min} | mm |
+| {$now_sec} | ss |
+| {$now_hhmm} | hhmm |
+| {$now_hh:mm} | hh:mm |
+| {$now_hhmmss} | hhmmss |
+| {$now_hh:mm:ss} | hh:mm:ss |
+
+Notice, YakiBiki replaces these keywords at displaying "new" page, not at saving new data.
+
+&br()
+
+----
+[ &help() ]

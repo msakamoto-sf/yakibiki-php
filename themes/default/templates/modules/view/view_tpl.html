@@ -1,0 +1,101 @@
+<{include file="theme:header_tpl.html" show_edit_menu=true data=$data}>
+<div class="contents_s">
+<!-- data_main -->
+<div class="data_main">
+
+<{if $title_auto_ls }>
+<h2 style="display:none"><{$data.display_title}></h2><span class="auto_ls"><{$title_auto_ls|smarty:nodefaults}></span>
+<{else}>
+<h2><{$data.display_title}></h2>
+<{/if}>
+
+<div class="data_attrs_pre">
+id: <{$data.id}>&nbsp;<{t}>owner<{/t}>: <{if $data.owner }><{$data.owner.name}><{else}>unknown(user id=<{$data._owner_uid}>)<{/if}>&nbsp;&nbsp;&nbsp;
+<{t}>created at<{/t}>: <{$data.published_at|yb_strftime}><br />
+<{t}>category<{/t}>: <{foreach from=$data.categories item=category}><{$category.name}>&nbsp;<{/foreach}>
+</div>
+
+<div class="data_body">
+<{$contents|smarty:nodefaults}>
+</div>
+
+<div class="data_attrs_post">
+<{if $data.display_version_id ne $data.current_version_id }><span style="color: red;"><{t}>display version<{/t}> : <{$data.display_version_number}></span><br /><{/if}>
+<{t}>current version<{/t}> : <{if $data.display_version_id ne $data.current_version_id }><a href="<{yb_make_url mdl=view id=$data.id }>" title="<{t}>view current version's data<{/t}>"><{$data.current_version_number}></a><{else}><{$data.current_version_number}><{/if}><br />
+<{t}>updated by<{/t}>: <{if $data.updated_by }><{$data.updated_by.name}><{else}>unknown(user id=<{$data.updated_by._updated_by_uid}>)<{/if}><br />
+<{t}>updated at<{/t}>: <{$data.updated_at|yb_strftime}><br />
+<{if $is_version_specified }>
+<{assign var=ver_temp value=$display_version}>
+<{else}>
+<{assign var=ver_temp value=$data.current_version}>
+<{/if}>
+<{foreach from=$data._versions item=info}>
+	<{if $data.display_version_id ne $data.current_version_id }>
+		<{if $data.display_version_id eq $info.id}>md5:<{$info.md5}><br>sha1:<{$info.sha1}><br><{/if}>
+	<{else}>
+		<{if $data.current_version_id eq $info.id}>md5:<{$info.md5}><br>sha1:<{$info.sha1}><br><{/if}>
+	<{/if}>
+<{/foreach}>
+</div>
+
+</div>
+<!-- //data_main -->
+
+<!-- comment block -->
+<div class="comment">
+<h5><{yb_icon icon=comments}><{t}>comments<{/t}></h5>
+
+<!-- comment list block -->
+<div class="comment_list">
+<{foreach from=$comment_list item=comment}>
+<div class="comment_block">
+	<a name="<{$comment.fragment}>"></a>
+	<div class="comment_header">
+	<{yb_icon icon=comment alt='comment' title='comment' }><{$comment.owner.name}>&nbsp;-&nbsp;<{t}>posted at<{/t}>&nbsp;<{$comment.updated_at|yb_strftime}><br />
+	</div>
+
+	<{if $comment.body_visible}>
+	<div class="comment_body"><{$comment.text|nl2br}></div>
+	<{/if}>
+
+	<div class="comment_footer">
+	<{if $comment.updatable}>
+	<{yb_icon icon=comment_delete alt=delete}><a href="<{yb_make_url mdl=comment_del id=$data.display_id c=$comment.id __TICKET_NAME__=$ticket_form __TICKET_ID__=$ticket_id}>"><{t}>delete<{/t}></a><{if $data.is_comments_moderated}>&nbsp;|&nbsp;<{/if}>
+	<{/if}>
+<{if $data.is_comments_moderated}>
+	<{if $comment.approved }><span style="color: black"><{t}>approved<{/t}></span><{else}><span style="color: gray"><{t}>nonapproved<{/t}></span><{/if}>
+	<{if $comment.approvable}>&nbsp;:&nbsp;<a href="<{yb_make_url id=$data.display_id c=$comment.id mdl=comment_approve __TICKET_NAME__=$ticket_form __TICKET_ID__=$ticket_id}>" title="<{t}>switch approved status<{/t}>"><{t}>switch approved status<{/t}></a><{/if}>
+<{/if}>
+	</div>
+</div>
+<{/foreach}>
+</div>
+<!-- //comment list block -->
+
+<!-- new comment post block -->
+<div class="comment_post">
+<{if $user_context.id != constant('YB_GUEST_UID') }>
+<{yb_icon icon=comment_add}><{t}>post new comment<{/t}>
+
+<form action="<{yb_make_url mdl=comment_add}>" method="POST">
+<input type="hidden" name="id" value="<{$data.id}>" />
+<input type="hidden" name="display_id" value="<{$data.display_id}>" />
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+<textarea name="comment_body" wrap="soft" cols="50" rows="6"></textarea><br />
+<{if $data.is_comments_moderated}><span style="color: red; font-size: small;"><{t}>NOTICE: Comments are moderated. Your comment doesn't be displayed until data's owner or system administrator accept it.<{/t}></span><br /><{/if}>
+<input type="submit" value="<{t}>post<{/t}>" /><br />
+</form>
+
+<{else}>
+
+<{t}>Please login to post new comment.<{/t}>
+
+<{/if}>
+</div>
+<!-- //new comment post block -->
+
+</div>
+<!-- //comment block -->
+
+</div>
+<{include file="theme:footer_tpl.html" show_menupage=true}>

@@ -1,0 +1,94 @@
+<{include file="theme:header_tpl.html" title_img="acl_edit"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<form action="<{yb_xhwlay_url mdl=acl}>" method="POST">
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>detail<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left"><input type="text" name="name" value="<{$form.html.name}>" size="32" /><{$form.html.required_mark|smarty:nodefaults}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>owner<{/t}></th>
+		<td align="left"><{$virtual.owner.name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>policy<{/t}></th>
+		<td align="left">
+			<{assign var='policies' value=$form.html.policy }>
+			<{section name=idx loop=$policies}>
+				<input name="policy" value="<{$policies[idx].value}>" type="radio" id="<{$policies[idx].id}>" <{if $policies[idx].checked}>checked="checked"<{/if}> />
+				<label for="<{$policies[idx].id}>"><{$policies[idx].label}></label><br />
+			<{/section}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>users list<{/t}></th>
+		<td align="left">
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>user<{/t}></th>
+	<th><{t}>permission<{/t}></th>
+</tr>
+<tr>
+	<td class="odd" align="left"><{t}>Guest (NOT Logined) users only<{/t}></td>
+	<td class="odd" align="left"><{yb_acl_perm_selectmenu name=spuid_guest default=$form.html.spuid.guest}></td>
+</tr>
+<tr>
+	<td class="even" align="left"><{t}>Logined users only<{/t}></td>
+	<td class="even" align="left"><{yb_acl_perm_selectmenu name=spuid_logined default=$form.html.spuid.logined}></td>
+</tr>
+<{foreach from=$form.html.perms.user item=user_acl}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$user_acl.name}></td>
+	<td class="<{$tmp_class}>" align="left"><{$user_acl.perm}></td>
+</tr>
+<{/foreach}>
+</table><br />
+<a href="<{yb_xhwlay_url mdl=acl _event_=onUpdate_UserManager}>"><{t}>customize user permission<{/t}></a>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>groups list<{/t}></th>
+		<td align="left">
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>group<{/t}></th>
+	<th><{t}>permission<{/t}></th>
+</tr>
+<{foreach from=$form.html.perms.group item=group_acl}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$group_acl.name}></td>
+	<td class="<{$tmp_class}>" align="left"><{$group_acl.perm}></td>
+</tr>
+<{/foreach}>
+</table><br />
+<a href="<{yb_xhwlay_url mdl=acl _event_=onUpdate_GroupManager}>"><{t}>customize group permission<{/t}></a>
+		</td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="_event_onUpdate_TemporarySave" value="<{t}>temporary save<{/t}>" />&nbsp;
+				<input type="submit" name="_event_onUpdate_Confirm" value="<{t}>confirm<{/t}>" />&nbsp;
+				<input type="reset" value="<{t}>reset<{/t}>" /><br />
+				<font color="red">*</font><{t}>is required item.<{/t}>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+<br />
+<a href="<{yb_xhwlay_url mdl=acl _event_=onBackToList}>"><{t}>Cancel &amp; Back To List<{/t}></a>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

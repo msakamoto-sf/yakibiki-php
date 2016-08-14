@@ -1,0 +1,434 @@
+// $Id: WikiFormat.txt 466 2008-11-22 02:15:37Z msakamoto-sf $
+[ &help() ]
+
+KinoWikiの作者に格別の感謝を。YakiBikiのWikiパーサはKinoWikiのパーサを元にしています。
+ヘルプドキュメントもKinoWikiを大いに参考にしています。
+KinoWiki無しにはYakiBikiは存在していなかった事を、改めてこの場で申し上げておきます。
+
+#help_outline||
+----
+
+* ブロック要素
+
+複数行をまとめて表現する要素です。
+YakiBikiでは、以下の表記がブロック要素として処理されます。
+- 見出し
+- 整形済テキスト
+- 引用
+- リスト
+- 定義リスト
+- テーブル
+- ブロックプラグイン
+
+** 見出し
+
+ *見出し
+
+行頭に &pre(){*} をつけると、その行は見出しになります。&pre(){*, **, ***, ****}の４段階あり、それぞれ<h3>から<h6>タグに展開されます。
+
+** 整形済テキスト
+
+  整形済テキスト
+ ^ 空白
+	* "><&' *
+ ^ TAB文字
+
+> 整形済テキスト
+>	* "><&' *
+
+行頭に半角空白またはタブをつけると、その行は整形済テキストとして表示されます。整形済テキストの中のWiki文法は解釈されません。
+
+** 引用
+
+ >引用文
+>引用文
+
+行頭に>をつけると引用文と見なされます。
+メールで行うように
+ > 引用文
+と、>と引用文の間に半角空白を入れると「整形済みテキストの引用文」と見なされるので注意してください。
+
+** リスト
+
+ - Level 1
+ -- Level 1_1
+ -- Level 1_2
+ --- Level 1_2_1
+ + Level 2
+ ++ Level 2_1
+ ++ Level 2_2
+
+>- Level 1
+>-- Level 1_1
+>-- Level 1_2
+>--- Level 1_2_1
+>+ Level 2
+>++ Level 2_1
+>++ Level 2_2
+
+行頭に - をつけると、その行は箇条書きになります。-を並べて書くと、入れ子にすることが出来ます。
+"-" の代わりに "+" を使うと、箇条書きに番号がつきます。
+
+** 定義リスト
+
+:定義１:
+説明文１説明文１説明文１
+説明文１
+:定義２:
+:定義３:
+説明文３
+
+":"で囲われた部分があると、その前後を定義リストとして扱います。
+説明文はブロック要素として扱われるので改行することができますが、空行は定義リストの終わりとみなすので、説明文の中に空行を設けたい場合はblockプラグインを使用してください。
+
+ :定義１:#block||>説明文１
+ 
+ 説明文１
+ 
+ 説明文１
+ ||<
+ :定義２:説明文２
+
+>:定義１:#block||>説明文１
+>
+>説明文１
+>
+>説明文１
+>||<
+>:定義２:説明文２
+
+** テーブル
+
+ |見出し１|見出し２|hR
+ |内容１|内容２|
+ |内容３|内容４|c
+ |CENTER:内容５|RIGHT,BGCOLOR(yellow):内容６|
+ |AAAAAAAAAAA|BBBBBBBBBBB|H
+
+|見出し１|見出し２|hR
+|内容１|内容２|
+|内容３|内容４|c
+|CENTER:内容５|RIGHT,BGCOLOR(yellow):内容６|
+|AAAAAAAAAAA|BBBBBBBBBBB|H
+
+"|"で区切ることでテーブルになります。
+行末にhをつけるとその行は見出しになります。また、l、c、rでそれぞれ左寄せ、中寄せ、右寄せになります。
+セル単位で左寄せ、中寄せ、右寄せしたいときはセルの内容を「LEFT:」「CENTER:」「RIGHT:」ではじめます。背景色を指定する場合は「BGCOLOR(色指定)」になります。複数指定したい場合は「,」で区切ります。
+
+** ブロックプラグイン
+
+ // 引数無し
+ #plugin_name||
+ 
+ // 引数1のみ
+ #plugin_name|param1|
+ 
+ // 引数1 + 引数2
+ #plugin_name|param1|>
+ param2
+ ||<
+ 
+ // 引数2のみ
+ #plugin_name||>
+ param2
+ ||<
+
+プラグインがインストールされていれば、プラグインを使う事が出来ます。引数2は改行を含む事が出来ます。詳しくは各プラグインの説明をご覧ください。
+利用可能なプラグインは以下のリンクを参照して下さい。なお、プラグインの説明の「タイプ」欄にblockと書かれているものがブロックプラグインとして利用可能です。
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+
+* インライン要素
+
+一行、あるいは行の中の連続文字を表現する要素です。
+YakiBikiでは、以下の要素がインライン要素として処理されます。
+- URL、メールアドレス
+- YakiBikiリンク(ブラケットリンク)
+- 強調、斜体、取消線修飾要素
+- 脚注
+- インラインプラグイン
+
+** URL、メールアドレス
+
+テキスト中に現れたURLやメールアドレスは自動的にリンクに変換されます。
+
+ URL : http://www.google.com/
+ メールアドレス : admin@example.com
+
+>URL : http://www.google.com/
+>メールアドレス : admin@example.com
+
+** YakiBikiリンク(ブラケットリンク)
+
+ブラケットリンクバリエーション例
+ # Without Alias
+ [[http://www.google.com/]]
+ [[yb://relative/link/path]]
+ [[admin@example.com]]
+ [[1]] to FrontPage ID
+ [[SideBar]]
+ 
+ # With Alias
+ [[AliasName>http://www.google.com/]]
+ [[AliasName>yb://relative/link/path]]
+ [[AliasName>admin@example.com]]
+ [[AliasName>1]]
+ [[AliasName>SideBar]]
+
+YakiBikiのページ名やIDをブラケット二つで囲む事で、リンクとして表示されます。
+ FrontPageへのリンク(ID指定) -> [[1]]
+ FrontPageへのリンク(ページ名指定) -> [[FrontPage]]
+>FrontPageへのリンク(ID指定) -> [[1]]
+>FrontPageへのリンク(ページ名指定) -> [[FrontPage]]
+
+URLやメールアドレスを囲っても、通常のリンクとして表示されます
+ Googleへのリンク -> [[http://www.google.com/]]
+ メールアドレスへのリンク -> [[admin@example.com]]
+>Googleへのリンク -> [[http://www.google.com/]]
+>メールアドレスへのリンク -> [[admin@example.com]]
+
+"yb://"で始まる相対パスを指定すると、_YB('url')で始まる相対パスに変換して表示されます。
+ [[yb://dir1/dir2/dir3/image.jpg]]
+ ->
+ _YB('url') + '/dir1/dir2/dir3/image.jpg
+>[[yb://dir1/dir2/dir3/image.jpg]]
+
+"別名>URL or MAIL"とすることで、表示を別名にする事もできます。
+ [[Google>http://www.google.com]]
+ [[メールアドレス>admin@example.com]]
+[[Google>http://www.google.com]]
+[[メールアドレス>admin@example.com]]
+
+
+** 強調、斜体、取消線修飾要素
+
+以下のサンプルを参照して下さい。
+
+ '' 強調 ''
+ アスタリスクを使った**強調**
+ '''斜体'''
+ アスタリスクを使った*斜体*
+ %%取消線%%
+
+>'' 強調 ''
+>アスタリスクを使った**強調**
+>'''斜体'''
+>アスタリスクを使った*斜体*
+>%%取消線%%
+
+** 脚注
+
+ ((脚注))
+
+二重の半角括弧で括った文字列は、脚注となります。ページ下部に文字列が移動して、元の場所には小さなリンクが残されます。
+
+** インラインプラグイン
+
+ // 引数無し
+ &plugin_name()
+ 
+ // 引数1のみ
+ &plugin_name(param1)
+ 
+ // 引数1 + 引数2
+ &plugin_name(param1){ param2 }
+ 
+ // 引数2のみ
+ &plugin_name(){ param2 }
+
+プラグインがインストールされていれば、プラグインを使う事が出来ます。詳しくは各プラグインの説明をご覧ください。
+利用可能なプラグインは以下のリンクを参照して下さい。なお、プラグインの説明の「タイプ」欄にinlineと書かれているものがインラインプラグインとして利用可能です。
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+
+* その他
+
+その他の要素・テクニックについて紹介します。
+
+** Wiki書式として認識される特殊文字をそのまま出力したい時には
+
+ &pre(){*, |, [} など、Wiki書式... &pre(){ #, & } ...
+→
+&pre(){*, |, [} など、Wiki書式として認識される特殊文字およびプラグインの開始文字列である &pre(){ #, & } をそのまま出力するには、preインラインプラグインを使用します。
+
+** 行頭の &pre(){*} を見出し文字として認識させたくない場合には
+
+voidインラインプラグインを行頭に挿入します。voidインラインプラグインは空文字列に変換されます。
+ &void()*見出しではなく強調文字になります。*
+&void()*見出しではなく強調文字になります。*
+
+
+** 改行プラグイン
+
+テーブルなどを作る時、途中で改行を入れたい場合はbrインラインプラグインを使用します。
+ | aaaa &br() bbb | cccc dddd |
+| aaaa &br() bbb | cccc dddd |
+
+** 水平線
+
+"-"を行頭から4つ以上連続させる事で、水平線(<hr />タグ)として表示されます。
+ ----
+----
+
+** コメント
+
+行頭を "//" で始めると、行末まではコメントとしてHTMLに出力されません。
+ // 行末まで表示されません。
+// 行末まで表示されません。
+
+** HTML特殊文字
+
+矢印やギリシャ文字、シンボルなどはHTML特殊文字のキーワードをそのまま使う事が可能です。
+参考：http://www.w3.org/TR/html4/sgml/entities.html
+
+*** ISO 8859-1 (Latin1) 系
+
+| &nbsp; | &amp;#160; | &amp;nbsp; |
+| &iexcl; | &amp;#161; | &amp;iexcl; |
+| &cent; | &amp;#162; | &amp;cent; |
+| &pound; | &amp;#163; | &amp;pound; |
+| &curren; | &amp;#164; | &amp;curren; |
+| &yen; | &amp;#165; | &amp;yen; |
+| &brvbar; | &amp;#166; | &amp;brvbar; |
+| &sect; | &amp;#167; | &amp;sect; |
+| &uml; | &amp;#168; | &amp;uml; |
+| &copy; | &amp;#169; | &amp;copy; |
+| &ordf; | &amp;#170; | &amp;ordf; |
+| &laquo; | &amp;#171; | &amp;laquo; |
+| &not; | &amp;#172; | &amp;not; |
+| &shy; | &amp;#173; | &amp;shy; |
+| &reg; | &amp;#174; | &amp;reg; |
+| &macr; | &amp;#175; | &amp;macr; |
+| &deg; | &amp;#176; | &amp;deg; |
+| &plusmn; | &amp;#177; | &amp;plusmn; |
+| &sup2; | &amp;#178; | &amp;sup2; |
+| &sup3; | &amp;#179; | &amp;sup3; |
+| &acute; | &amp;#180; | &amp;acute; |
+| &micro; | &amp;#181; | &amp;micro; |
+| &para; | &amp;#182; | &amp;para; |
+| &middot; | &amp;#183; | &amp;middot; |
+| &cedil; | &amp;#184; | &amp;cedil; |
+| &sup1; | &amp;#185; | &amp;sup1; |
+| &ordm; | &amp;#186; | &amp;ordm; |
+| &raquo; | &amp;#187; | &amp;raquo; |
+| &frac14; | &amp;#188; | &amp;frac14; |
+| &frac12; | &amp;#189; | &amp;frac12; |
+| &frac34; | &amp;#190; | &amp;frac34; |
+| &iquest; | &amp;#191; | &amp;iquest; |
+| &times; | &amp;#215; | &amp;times; |
+| &Agrave; | &amp;#192; | &amp;Agrave; |
+| &Aacute; | &amp;#193; | &amp;Aacute; |
+| &Acirc; | &amp;#194; | &amp;Acirc; |
+| &Atilde; | &amp;#195; | &amp;Atilde; |
+| &Auml; | &amp;#196; | &amp;Auml; |
+| &Aring; | &amp;#197; | &amp;Aring; |
+| &AElig; | &amp;#198; | &amp;AElig; |
+| &Ccedil; | &amp;#199; | &amp;Ccedil; |
+| &Egrave; | &amp;#200; | &amp;Egrave; |
+| &Eacute; | &amp;#201; | &amp;Eacute; |
+| &Ecirc; | &amp;#202; | &amp;Ecirc; |
+| &Euml; | &amp;#203; | &amp;Euml; |
+| &Igrave; | &amp;#204; | &amp;Igrave; |
+| &Iacute; | &amp;#205; | &amp;Iacute; |
+| &Icirc; | &amp;#206; | &amp;Icirc; |
+| &Iuml; | &amp;#207; | &amp;Iuml; |
+| &ETH; | &amp;#208; | &amp;ETH; |
+| &Ntilde; | &amp;#209; | &amp;Ntilde; |
+| &Ograve; | &amp;#210; | &amp;Ograve; |
+| &Oacute; | &amp;#211; | &amp;Oacute; |
+| &Ocirc; | &amp;#212; | &amp;Ocirc; |
+| &Otilde; | &amp;#213; | &amp;Otilde; |
+| &Ouml; | &amp;#214; | &amp;Ouml; |
+| &Oslash; | &amp;#216; | &amp;Oslash; |
+| &Ugrave; | &amp;#217; | &amp;Ugrave; |
+| &Uacute; | &amp;#218; | &amp;Uacute; |
+| &Ucirc; | &amp;#219; | &amp;Ucirc; |
+| &Uuml; | &amp;#220; | &amp;Uuml; |
+| &Yacute; | &amp;#221; | &amp;Yacute; |
+| &THORN; | &amp;#222; | &amp;THORN; |
+| &szlig; | &amp;#223; | &amp;szlig; |
+
+*** 特殊文字・シンボル系
+
+| &quot; | &amp;#34; | &amp;quot; |
+| &amp; | &amp;#38; | &amp;amp; |
+| &lt; | &amp;#60; | &amp;lt; |
+| &gt; | &amp;#62; | &amp;gt; |
+| &rarr; | &amp;#8594; | &amp;rarr; |
+| &larr; | &amp;#8592; | &amp;larr; |
+| &uarr; | &amp;#8593; | &amp;uarr; |
+| &darr; | &amp;#8595; | &amp;darr; |
+| &rArr; | &amp;#8658; | &amp;rArr; |
+| &lArr; | &amp;#8656; | &amp;lArr; |
+| &uArr; | &amp;#8657; | &amp;uArr; |
+| &dArr; | &amp;#8659; | &amp;dArr; |
+| &hArr; | &amp;#8660; | &amp;hArr; |
+| &harr; | &amp;#8596; | &amp;harr; |
+| &crarr; | &amp;#8629; | &amp;crarr; |
+| &ndash; | &amp;#8211; | &amp;ndash; |
+| &mdash; | &amp;#8212; | &amp;mdash; |
+| &lsquo; | &amp;#8216; | &amp;lsquo; |
+| &rsquo; | &amp;#8217; | &amp;rsquo; |
+| &sbquo; | &amp;#8218; | &amp;sbquo; |
+| &ldquo; | &amp;#8220; | &amp;ldquo; |
+| &rdquo; | &amp;#8221; | &amp;rdquo; |
+| &bdquo; | &amp;#8222; | &amp;bdquo; |
+| &dagger; | &amp;#8224; | &amp;dagger; |
+| &Dagger; | &amp;#8225; | &amp;Dagger; |
+| &permil; | &amp;#8240; | &amp;permil; |
+| &euro; | &amp;#8364; | &amp;euro; |
+| &sdot; | &amp;#8901; | &amp;sdot; |
+| &loz; | &amp;#9674; | &amp;loz; |
+
+*** 数学記号系
+
+| &empty; | &amp;#8709; | &amp;empty; |
+| &lceil; | &amp;#8968; | &amp;lceil; |
+| &rfloor; | &amp;#8971; | &amp;rfloor; |
+| &prod; | &amp;#8719; | &amp;prod; |
+| &minus; | &amp;#8722; | &amp;minus; |
+| &lowast; | &amp;#8727; | &amp;lowast; |
+| &notin; | &amp;#8713; | &amp;notin; |
+| &lfloor; | &amp;#8970; | &amp;lfloor; |
+| &rceil; | &amp;#8969; | &amp;rceil; |
+| &lang; | &amp;#9001; | &amp;lang; |
+| &rang; | &amp;#9002; | &amp;rang; |
+| &sim; | &amp;#8764; | &amp;sim; |
+| &cong; | &amp;#8773; | &amp;cong; |
+| &asymp; | &amp;#8776; | &amp;asymp; |
+| &le; | &amp;#8804; | &amp;le; |
+| &ge; | &amp;#8805; | &amp;ge; |
+| &ne; | &amp;#8800; | &amp;ne; |
+| &infin; | &amp;#8734; | &amp;infin; |
+| &there4; | &amp;#8756; | &amp;there4; |
+| &isin; | &amp;#8712; | &amp;isin; |
+| &ni; | &amp;#8715; | &amp;ni; |
+| &sube; | &amp;#8838; | &amp;sube; |
+| &supe; | &amp;#8839; | &amp;supe; |
+| &sub; | &amp;#8834; | &amp;sub; |
+| &sup; | &amp;#8835; | &amp;sup; |
+| &cup; | &amp;#8746; | &amp;cup; |
+| &cap; | &amp;#8745; | &amp;cap; |
+| &and; | &amp;#8743; | &amp;and; |
+| &or; | &amp;#8744; | &amp;or; |
+| &forall; | &amp;#8704; | &amp;forall; |
+| &exist; | &amp;#8707; | &amp;exist; |
+| &ang; | &amp;#8736; | &amp;ang; |
+| &perp; | &amp;#8869; | &amp;perp; |
+| &part; | &amp;#8706; | &amp;part; |
+| &nabla; | &amp;#8711; | &amp;nabla; |
+| &equiv; | &amp;#8801; | &amp;equiv; |
+| &radic; | &amp;#8730; | &amp;radic; |
+| &prop; | &amp;#8733; | &amp;prop; |
+| &int; | &amp;#8747; | &amp;int; |
+| &nsub; | &amp;#8836; | &amp;nsub; |
+| &sum; | &amp;#8721; | &amp;sum; |
+| &oplus; | &amp;#8853; | &amp;oplus; |
+| &otimes; | &amp;#8855; | &amp;otimes; |
+
+&br()
+
+----
+[ &help() ]

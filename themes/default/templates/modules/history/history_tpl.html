@@ -1,0 +1,63 @@
+<{include file="theme:header_tpl.html" title_img="history" show_edit_menu=true data=$data}>
+<div class="contents_c" style="text-align: left;">
+
+<{yb_display_validate_errors errors=$errors}>
+
+<{if $allow_update }>
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="history" />
+<input type="hidden" name="id" value="<{$data.id}>" />
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+<{/if}>
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>version<{/t}></th>
+	<th><{t}>informations<{/t}></th>
+<{if $allow_update}>
+	<th><{t}>delete<{/t}></th>
+<{/if}>
+	<th><{t}>comments<{/t}>(<{t}>changelog<{/t}>)</th>
+</tr>
+<{foreach from=$versions item=vinfo}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left">
+		<{if $allow_update }>
+		<input type="radio" name="current_version" value="<{$vinfo.version}>" <{if $data.current_version == $vinfo.id}>checked="checked"<{/if}> id="cv_<{$vinfo.id}>" />
+		<{/if}>
+		<label for="cv_<{$vinfo.id}>"><{if $data.current_version == $vinfo.id}><strong><{$vinfo.version}></strong><{else}><{$vinfo.version}><{/if}></label>
+	</td>
+	<td class="<{$tmp_class}>" align="left">
+		<a href="<{yb_make_url mdl=view id="`$data.id`_`$vinfo.version`" }>" title="<{t version=$vinfo.version}>view version %version data in another window<{/t}>" target="_blank">
+		<{yb_icon icon=new_window class='link'}>&nbsp; <{t}>view in another window<{/t}>
+		</a>&nbsp;&nbsp;&nbsp;
+		<{t}>updated by<{/t}> : <{yb_dao_find_by dao=user id=$vinfo.owner print=name}><br />
+		<{t}>updated at<{/t}> : <{$vinfo.updated_at|yb_strftime}><br />
+		md5 : <{$vinfo.md5}><br />
+		sha1 : <{$vinfo.sha1}><br />
+<{if $allow_update && $data.current_version != $vinfo.id}>
+		<hr />
+		<{if $vinfo.approved }><span style="color: green"><{t}>approved<{/t}></span><{else}><span style="color: red"><{t}>nonapproved<{/t}></span><{/if}>&nbsp;:&nbsp;
+		<a href="<{yb_make_url id=$data.id mdl=history moderate_version=$vinfo.version __TICKET_NAME__=$ticket_form __TICKET_ID__=$ticket_id}>" title="<{t}>switch approved status<{/t}>"><{t}>switch approved status<{/t}></a>
+<{/if}>
+	</td>
+<{if $allow_update}>
+	<td class="<{$tmp_class}>" align="center">
+		<{if $data.current_version != $vinfo.id}>
+		<a href="<{yb_make_url id=$data.id mdl=history delete=$vinfo.version __TICKET_NAME__=$ticket_form __TICKET_ID__=$ticket_id}>" title="<{t version=$vinfo.version}>delete version %version data<{/t}>">
+		<{yb_icon icon=delete class='link'}>
+		</a>
+		<{else}>-<{/if}>
+	</td>
+<{/if}>
+	<td class="<{$tmp_class}>" align="left"><pre><{$vinfo.changelog}></pre></td>
+</tr>
+<{/foreach}>
+</table>
+<br />
+<{if $allow_update }>
+<input type="submit" value="<{t}>change current version<{/t}>" />
+</form>
+<{/if}>
+</div>
+<{include file="theme:footer_tpl.html"}>

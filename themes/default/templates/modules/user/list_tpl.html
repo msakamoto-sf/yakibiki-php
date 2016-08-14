@@ -1,0 +1,53 @@
+<{include file="theme:header_tpl.html" title_img="user"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<{yb_icon icon=user_add width=24}>&nbsp;<a href="<{yb_xhwlay_url mdl=user _event_=onList_Create}>"><{t}>Create New User<{/t}></a><br /><br />
+
+<{yb_pager_slider_navi navi=$navi}>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>name<{/t}>&nbsp;/&nbsp;<{t}>mail<{/t}><br /><{t}>status<{/t}>&nbsp;/&nbsp;<{t}>role<{/t}></th>
+	<th><{t}>created at<{/t}><br><{t}>updated at<{/t}></th>
+	<th><{t}>operation<{/t}></th>
+</tr>
+<{foreach from=$users item=user}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$user.id}></td>
+	<td class="<{$tmp_class}>" align="left">
+		<{$user.name}>&nbsp;/&nbsp;<{$user.mail}><br />
+		<{if $user.status == constant('YB_USER_STATUS_OK')}>
+			<span style="color: green; font-weight: bold;"><{t}>valid<{/t}></span>
+		<{else}>
+			<span style="color: red; font-weight: bold;"><{t}>invalid<{/t}></span>
+		<{/if}>
+		&nbsp;/&nbsp;
+		<{foreach from=$roles_display_names key=k item=v}>
+			<{if in_array($k, $user.role) }><{$v}><{/if}>
+		<{/foreach}>
+	</td>
+	<td class="<{$tmp_class}>" align="left"><{$user.created_at|yb_strftime}><br><{$user.updated_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" >
+		<a href="<{yb_xhwlay_url mdl=user _event_=onList_Update id=$user.id}>" class="iconlink"><{yb_icon icon=user_edit alt='edit' width=24 class='link' title='edit' }></a>
+		<{if $user_context.id != $user.id}>
+		<{if !_YB('disable.user.physical_delete') }>
+		&nbsp;&nbsp;
+		<a href="<{yb_xhwlay_url mdl=user _event_=onList_Delete id=$user.id}>" class="iconlink"><{yb_icon icon=user_delete alt='delete' width=24 class='link' title='delete' }></a>
+		<{/if}>
+		<{/if}>
+	</td>
+</tr>
+<{/foreach}>
+</table>
+
+<{yb_pager_sort_limit_navi navi=$navi}>
+
+<br />
+<{yb_icon icon=user_add width=24}>&nbsp;<a href="<{yb_xhwlay_url mdl=user _event_=onList_Create}>"><{t}>Create New User<{/t}></a><br /><br />
+
+</div>
+<{include file="theme:footer_tpl.html"}>

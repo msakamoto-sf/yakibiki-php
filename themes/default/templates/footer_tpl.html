@@ -1,0 +1,53 @@
+
+<{if $show_menupage || $show_searchbox}>
+<!-- sidemenu-wrap start -->
+<div id="sidemenu-wrap">
+
+<{has_role role=new}>
+<fieldset id="createmenu">
+<legend><{yb_icon icon=create alt='create' title='create'}>&nbsp;<{t}>create<{/t}></legend>
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="new" />
+<{yb_dt_create_template_dt_selectmenu}>
+<input type="submit" value="<{t}>create new<{/t}>" />
+</form>
+<hr />
+<{t}>create from template<{/t}>&nbsp;:<br />
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="new_template" />
+<{yb_dt_create_template_selectmenu}>
+<input type="submit" value="<{t}>create<{/t}>" />
+</form>
+
+</fieldset>
+<{/has_role role=new}>
+
+<{if $show_menupage}>
+<!-- menupage start -->
+<div id="menupage" class="data_body">
+<{yb_import_data id=sidebar}>
+</div>
+<!-- /menupagae end -->
+<{/if}>
+<{if $show_searchbox}><{yb_search_box}><{/if}>
+</div>
+<!-- /sidemenu-wrap end -->
+<{/if}>
+
+</div>
+<!-- /content-wrap end -->
+
+<!-- footer start -->
+<div id="footer">
+<strong>YakiBiki <{_YB key=yb.version}></strong>&nbsp;Copyright &copy; 2007 - 2009<a href="http://yakibiki.sourceforge.net/">YakiBiki Developers Team</a>. License is <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br />
+--&nbsp;Beautiful Icons&nbsp;--<br />
+<a href="http://www.famfamfam.com/lab/icons/silk/" target="_blank" title="Mark James Silk icon set 1.3">Mark James Silk icon set 1.3</a> by famfamfam<br />
+<a href="http://www.pinvoke.com/" target="_blank" title="Fugue Icons">Fugue Icons</a> by Yusuke Kamiyamane<br />
+</div>
+<!-- /footer end -->
+
+</div>
+<!-- /body end -->
+
+</body>
+</html>

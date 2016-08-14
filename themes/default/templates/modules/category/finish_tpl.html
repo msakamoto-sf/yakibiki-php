@@ -1,0 +1,29 @@
+<{include file="theme:header_tpl.html" title_img="category"}>
+<div class="contents_c">
+
+<h3><{t}>Completed following operations.<{/t}></h3>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>category name<{/t}>(<{t}>page count<{/t}>)<br /><{t}>owner<{/t}>(id)</th>
+	<th><{t}>created at<{/t}><br /><{t}>updated at<{/t}></th>
+	<th><{t}>operation<{/t}></th>
+	<th><{t}>result<{/t}></th>
+</tr>
+<{foreach from=$results item=result}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$result.data.id}></td>
+	<td class="<{$tmp_class}>" align="left"><{$result.data.name}>(<{$result.data.count}>)<br /><{if $result.data.owner}><{$result.data.owner.name}>(<{$result.data.owner.id}>)<{else}>-<{/if}></td>
+	<td class="<{$tmp_class}>" align="left"><{$result.data.created_at|yb_strftime}><br /><{$result.data.updated_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" align="left"><{$result.operation}></td>
+	<td class="<{$tmp_class}>" align="left"><{$result.result}></td>
+</tr>
+<{/foreach}>
+</table>
+<br />
+<a href="<{yb_xhwlay_url mdl=category}>"><{t}>Back To List<{/t}></a>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

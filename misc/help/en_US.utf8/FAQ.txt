@@ -1,0 +1,82 @@
+// $Id: FAQ.txt 553 2009-07-18 04:24:26Z msakamoto-sf $
+[ &help() ]
+
+I want more FAQ. If you have a question, please ask to [[sakamoto>msakamoto-sf@users.sourceforge.net]], YakiBiki developer.
+
+#help_outline||
+----
+
+* Generic FAQ
+
+** Where did "YakiBiki" name come from ?
+
+"Yet Another Blog Like Wiki" &rarr; "YakiBiki"
+
+** What is YakiBiki's license ?
+
+YakiBiki's license is [[Apache License, Version 2.0>http://www.apache.org/licenses/LICENSE-2.0.html]].
+Use Smarty and PEAR libraries which are included in YakiBiki under their own license.
+
+Thank you for following beautiful and cool icons in default theme :
+- FAMFAMFAM SILK ICONS
+-- http://www.famfamfam.com/lab/icons/silk/
+- Fugue Icons
+-- http://www.pinvoke.com/
+
+** Who develops ? How about support ?
+
+At Nov. 2008, Masahiko Sakamoto(msakamoto-sf@users.sourceforge.net) develops YakiBiki, and support on a personal basis.
+
+
+** Are there any mailing-lists ?
+
+There're two mailing-lists for users and developers in SourceForge.net for english.
+
+- YakiBiki Users (en)
+-- yakibiki-users-en@lists.sourceforge.net
+- YakiBiki Developers (en)
+-- yakibiki-devs-en@lists.sourceforge.net
+
+At Nov. 2008, you can also mail your request, question, and any ideas directly to Masahiko Sakamoto(msakamoto-sf@users.sourceforge.net).
+(For a while, only Masahiko Sakamoto develops YakiBiki on a personal basis ...)
+
+** How to follow latest("trunk") source code ?
+
+: For subversion :#block||>
+ $ svn co https://yakibiki.svn.sourceforge.net/svnroot/yakibiki/yb-php/trunk .
+||<
+: SF.net SCM Repositry Viewer : http://yakibiki.svn.sourceforge.net/viewvc/yakibiki/
+
+* FAQ for usage and configurations.
+
+** I want to change site url. What needed ?
+
++ Change "_YB('url')" in your config.php.
++ Delete all directories under temp/caches/.
+
+** Behavior of "Back" browser button is strange.
+
+At management pages, YakiBiki maintains request state for each session. So, "Back" button will not work as you hope.
+If you want to back to list in create/edit form page, it is recommended using menu icons in header or "Cancel & Back To List" link.
+
+** I want to use PEARs in my system, not included in YakiBiki.
+
+There're two ways for doing it.
+- Adjust _YB('dir.pear') to your system's PEAR library path.
+- Comment out _YB('dir.pear').
+-- &rarr; Confirm your "include_path" value in php.ini is correct.
+
+** I want to use some characterset, not UTF-8.
+
+Sorry, YakiBiki doesn't support character set except UTF-8.
+
+
+** How to stop that YakiBiki split page title by "/" and automatically create links in detailed page view.
+
+Set "false" for _YB('use.title_auto_ls') in your config.php.
+
+
+&br()
+
+----
+[ &help() ]

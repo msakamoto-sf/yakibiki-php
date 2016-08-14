@@ -1,0 +1,117 @@
+// $Id: Plugin_Wiki_P-Z.txt 555 2009-07-18 05:18:03Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+
+* pre
+
+: 説明 : 整形済テキストとして表示する。
+: ファイル : yb_plugin_wiki_pre.php
+: タイプ : inline, block
+: 引数 : (無し)
+
+ abc &pre() { * def "><&' * } ghi * jkl "><&' * mno
+----
+abc &pre() { * def "><&' * } ghi * jkl "><&' * mno
+----
+ line1 "><&'
+ #pre||>
+ &size(12px) { line2 }
+ line3 "><&'
+ line4 "><&'
+ ||<
+ line5 "><&'
+----
+line1 "><&'
+#pre||>
+&size(12px) { line2 }
+line3 "><&'
+line4 "><&'
+||<
+line5 "><&'
+
+* recent
+
+: 説明 : 最近更新されたタイトルを指定された件数分、日毎にまとめて表示する。
+: ファイル : yb_plugin_wiki_recent.php
+: タイプ : block
+: 引数 : 表示したい件数。省略時のデフォルトは10件。
+
+ #recent||
+ ----
+ #recent|5|>
+ (ignored)
+ ||<
+
+#recent||
+----
+#recent|5|>
+(ignored)
+||<
+
+
+* size
+
+: 説明 : 文字サイズを変更する。
+: ファイル : yb_plugin_wiki_size.php
+: タイプ : inline, block
+: 引数 : CSSのfont-sizeプロパティで指定可能な単位付数値(("12px", "100%", ...))又は文字列(("small", "x-large", ...))
+
+ abc &size(12px) { def ** "><&' ** } ghi
+----
+abc &size(12px) { def ** "><&' ** } ghi
+----
+ line1
+ #size|xx-large|>
+ line2 "><&'
+ line3
+ > quote1 ** "><&' **
+ > quote2
+ > quote3
+ line4
+ ||<
+ line5
+----
+line1
+#size|xx-large|>
+line2 "><&'
+line3
+> quote1 ** "><&' **
+> quote2
+> quote3
+line4
+||<
+line5
+
+* void
+
+: 説明 : ブラックホールプラグイン。コメントアウトにも使える。
+: ファイル : yb_plugin_wiki_void.php
+: タイプ : inline, block
+: 引数 : (無し)
+
+ aaa &void() { bbb "><&' } ccc
+----
+aaa &void() { bbb "><&' } ccc
+----
+ line1
+ #void||>
+ line2 "><&'
+ line3
+ line4
+ ||<
+ line5
+----
+line1
+#void||>
+line2"><&'
+line3
+line4
+||<
+line5
+
+&br()
+
+----
+[ &help() ]

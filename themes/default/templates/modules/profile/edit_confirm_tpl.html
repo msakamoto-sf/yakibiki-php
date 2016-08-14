@@ -1,0 +1,58 @@
+<{include file="theme:header_tpl.html" title_img="user_edit"}>
+<div class="contents_c">
+
+<form action="<{yb_xhwlay_url mdl=profile}>" method="POST">
+<{$form.html.hidden}>
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>detail<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right">id</th>
+		<td align="left"><{$virtual.id}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left"><{$form.html.name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>mail address<{/t}></th>
+		<td align="left"><{$form.html.mail}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>password<{/t}></th>
+		<td align="left"><{$form.html.password}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>status<{/t}></th>
+		<td align="left"><{$form.html.status}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>role<{/t}></th>
+		<td align="left"><{$form.html.role}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>created at<{/t}></th>
+		<td align="left"><{$virtual.created_at|yb_strftime}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>updated at<{/t}></th>
+		<td align="left"><{$virtual.updated_at|yb_strftime}></td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="_event_onEdit_Save" value="<{t}>save<{/t}>" />&nbsp;
+				<input type="submit" name="_event_onEdit_Input" value="<{t}>back<{/t}>" />
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

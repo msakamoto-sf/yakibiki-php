@@ -1,0 +1,156 @@
+// $Id: Plugin_Wiki_H-O.txt 555 2009-07-18 05:18:03Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+
+* image
+
+: 説明 : 画像を表示する。
+: ファイル : yb_plugin_wiki_image.php
+: タイプ : inline
+: 引数 : 画像の指定方法に応じる。
+
+(1) YakiBiki内の画像データをIDで指定する。
+ &image(100)
+ &image(200) { "alt"属性のテキスト(オプション) }
+
+(2) 'yb://' を頭につけ、_YB('url') に対する相対パスで指定する。
+ &image(yb://dir1/dir2/image01.jpg) { "alt"属性のテキスト(オプション) }
+→ _YB('url') + 'dir1/dir2/image01.jpg'へのIMGタグに展開される。
+
+(3) 外部URLを指定する。
+ &image(http://example.com/image/01.jpg) { "alt"属性のテキスト(オプション) }
+
+また(1) - (3)共通の機能で画像の指定に続けて "height" と "width" を指定する事ができる。
+ # ID=100の画像を width="200" のIMGタグに展開する。
+ &image(100, width=200)
+ 
+ # https://example.com/image/01.png を height="200" のIMGタグに展開する。
+ &image(https://example.com/image/01.png, height=200)
+ 
+ # _YB('url') + '/dir/image.png' を 100 x 300 のIMGタグに展開する。
+ &image(yb:///dir/image.png, width=100, height=300)
+
+画像を回り込ませたい場合は、floatスタイルを指定する事ができる。"clear"ブロックプラグインと併用可能。
+ # <img>タグに style="float: left;" を設定する。
+ &image(yb://images/image.png, float=left)
+
+* ls
+
+: 説明 : 仮想ディレクトリ内のページ一覧を表示する。
+: ファイル : yb_plugin_wiki_ls.php
+: タイプ : block
+: 引数 : 一覧表示する仮想ディレクトリの起点となるページ名。省略時は現在のページ名。
+: 「仮想ディレクトリ」とは？ :
+記事のタイトル名を "/" (スラッシュ) で区切ることで仮想的なディレクトリ構造に見立てる機能
+
+ #ls|| : list up based on current page name.
+ #ls|page/name| : list up "page/name/*", "page/nameXXYY" pages.
+ #ls|page/name|>
+ (ignored)
+ ||< : (same).
+
+
+* more
+
+: 説明 : 以降のテキストは詳細表示でのみ表示され、検索一覧では表示されなくなる。
+: ファイル : yb_plugin_wiki_more.php
+: タイプ : block
+: 引数 : (無し)
+
+ #more||
+
+
+* navi
+
+: 説明 : 仮想ディレクトリを用いて、前後および上位ディレクトリのページ・TOPディレクトリのページへのリンクを表示する。
+: ファイル : yb_plugin_wiki_navi.php
+: タイプ : block
+: 引数 : 表示形態に応じる。下記参照。
+
+(1) "ページ名"をTOPディレクトリとした、下位仮想ディレクトリのページへのナビゲーションリンクを生成する。"ページ名"が省略された場合は現在のページ名がTOPディレクトリとして仮定される。
+ #navi|ページ名|
+
+(2) ヘッダー表示向けに、<hr>(水平線)タグをつけて表示する。"header"という文字列は固定。
+ #navi|virtual directory|>
+ header
+ ||<
+
+(3) フッター表示向けに、<hr>(水平線)タグをつけて表示する。"footer"という文字列は固定。
+ #navi|virtual directory|>
+ footer
+ ||<
+
+例：
+ based on current page name : 
+ #navi||
+ 
+ based on given virtual directory : 
+ #navi|page/name/dirs|
+ 
+ with header hr tags and simple display : 
+ #navi|page/name/dirs|>
+ header
+ ||<
+ (= #navi_header|page/name/dirs|)
+ 
+ with footer hr tags and detailed display : 
+ #navi|page/name/dirs|>
+ footer
+ ||<
+ (= #navi_footer|page/name/dirs|)
+
+
+* navi_footer
+
+: 説明 : naviプラグインのフッター表示バージョンのショートカットプラグイン
+: ファイル : yb_plugin_wiki_navi_footer.php
+: タイプ : block
+: 引数 : ページ名
+
+ #navi_footer||
+ #navi_footer|ページ名|
+
+
+* navi_header
+
+: 説明 : naviプラグインのヘッダー表示バージョンのショートカットプラグイン
+: ファイル : yb_plugin_wiki_navi_header.php
+: タイプ : block
+: 引数 : ページ名
+
+ #navi_header||
+ #navi_header|ページ名|
+
+
+* newcomments
+
+: 説明 : 最近投稿されたコメントのリンクリストを表示する。
+: ファイル : yb_plugin_wiki_newcomments.php
+: タイプ : block
+: 引数 : 最大表示コメント数。省略時は10件。
+
+ #newcomments||
+ 
+ #newcomments|5|
+
+
+* outline
+
+: 説明 : ページ内の見出しの一覧を表示する。見出しは該当箇所へのページ内リンクとして表示される。
+: ファイル : yb_plugin_wiki_outline.php
+: タイプ : block
+: 引数 : 表示する見出しレベル（省略時は全ての見出しレベルを対象とする。）
+
+ #outline||
+→全ての見出しの一覧を表示する。
+
+ #outline|2|
+→2レベルまでの見出しの一覧を表示する。
+
+
+&br()
+
+----
+[ &help() ]

@@ -1,0 +1,71 @@
+<{include file="theme:header_tpl.html" title_img="find"}>
+<div class="contents_s">
+
+<!-- search result header, pager -->
+<div id="search_result_header">
+
+<div id="srh_slider">
+<{yb_pager_slider_navi navi=$navi}>
+</div>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left"><{t}>title<{/t}>/<{t}>name<{/t}></th>
+	<th align="left"><{t}>updated by<{/t}></th>
+	<th align="left"><{t}>updated at<{/t}></th>
+</tr>
+<{foreach from=$datas item=data}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><a href="#<{$data.fragment}>"><{$data.display_title}></a></td>
+	<td class="<{$tmp_class}>" align="left"><{$data.updated_by.name}></td>
+	<td class="<{$tmp_class}>" align="left"><{$data.updated_at|yb_strftime}></td>
+</tr>
+<{/foreach}>
+</table>
+
+<div id="srh_sort_limit">
+<{yb_pager_sort_limit_navi navi=$navi hidden_tags=$hidden_tags}>
+</div>
+
+</div>
+<!-- //search result header, pager -->
+
+<!-- search result box -->
+<div id="search_results">
+
+<{foreach from=$datas item=data}>
+
+
+<div class="data_main">
+
+<h2><a name="<{$data.fragment}>"></a><a href="<{yb_make_url mdl=view id=$data.id }>"><{$data.display_title}></a>&nbsp;&nbsp;<a href="#pagetop" title="<{t}>back to page top<{/t}>" style="font-size: small;">&uarr;</a></h2>
+
+<div class="data_attrs_pre">
+<{t}>owner<{/t}>: <{if $data.owner }><{$data.owner.name}><{else}>unknown(user id=<{$data._owner_uid}>)<{/if}>&nbsp;&nbsp;&nbsp;
+<{t}>created at<{/t}>: <{$data.published_at|yb_strftime}><br />
+<{t}>category<{/t}>: <{foreach from=$data.categories item=category}><{$category.name}>&nbsp;<{/foreach}>
+</div>
+
+<div class="data_body">
+<{$data.contents|smarty:nodefaults}>
+</div>
+
+<div class="data_attrs_post">
+<{t}>current version<{/t}> : <{$data.current_version_number}><br />
+<{t}>updated by<{/t}>: <{if $data.updated_by }><{$data.updated_by.name}><{else}>unknown(user id=<{$data.updated_by._updated_by_uid}>)<{/if}><br />
+<{t}>updated at<{/t}>: <{$data.updated_at|yb_strftime}><br />
+<{assign var=ver_temp value=$data.current_version}>
+<{foreach from=$data._versions item=info}>
+	<{if $data.current_version_id eq $info.id}>md5:<{$info.md5}><br />sha1:<{$info.sha1}><br /><{/if}>
+<{/foreach}>
+</div>
+
+</div>
+
+<{/foreach}>
+</div>
+<!-- //search result box -->
+
+</div>
+<{include file="theme:footer_tpl.html" show_menupage=false show_searchbox=true }>

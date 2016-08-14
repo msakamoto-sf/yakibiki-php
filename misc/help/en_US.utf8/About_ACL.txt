@@ -1,0 +1,84 @@
+// $Id: About_ACL.txt 457 2008-11-19 14:29:13Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+* What is ACL(Access Control List) in YakiBiki ?
+
+An ACL in YakiBiki is a configuration list of users and groups with permission(hidden/read/read and write).
+In YakiBiki, users prepare ACL in advance. When creating new pages, users assign an ACL to a page.
+
+* About "Role" and "Permission"
+
+: Role :
+User management role, Group management role, ACL management role, ... e.t.c.
+"Role" are flags which decides whether a user can access and operate system management features.
+"Role" are individual between each users.
+"System role" users only can change own and other user's roles.
+: Permission :
+Information included in ACL. Permission is related to users or groups.
+
+Following descriptions only focus "Permission".
+
+There're three "Permission" in YakiBiki.
+- none:invisible
+- Read Only
+- Read and Edit
+
+There's no permission which combination is "Editable, but Not Readable". And also, there's no "Delete" permission.
+In YakiBiki, only page owner (who created its page) or "System role" user can delete its page datas.
+You can "delete" your data by changing acl to "Draft" ACL, its recommended way.
+
+NOTICE: "System role" user can read/edit/delete ALL page datas, ignoreing ACL.
+
+* Configure ACL and Permissions
+
+Users who has "ACL role" or "System role" only can edit ACLs.
+Main elements of ACL are following three items.
+- Policy
+- Permission list for users.
+- Permission list for groups.
+
+Above three permissions are available in user/group permission list for each user/groups.
+Users or Groups are added explicitly when setting permissions.
+Secial user permission (described below) is applied to non-added users/groups.
+
+* Permission Conflict and ACL "Policy"
+
+In YakiBiki ACL, there's probability of permission conflict.
+For example, "Read Only" permission to GroupA, "Read and Edit" to GroupB, which permission is applied to users who belongs to both GroupA and GroupB ?
+
+YakiBiki tries to solve these confilict by "Policy" ACL configuration.
+There're two policies in YakiBiki.
+- Positive Policy
+- Negative Policy
+
+"Read and Edit" is the most "Positive" permission. "non:invisible" is the most "Negative" permission.
+
+: Positive Policy :
+YakiBiki ALLOWS operations(read or edit) a user want, if one or more permissions which are "Positive" rather than user want are in permission list.
+: Negative Policy :
+YakiBiki REJECTS operations(read or edit) a user want, if one or more permissions which are "Negative" rather than user want are in permission list.
+
+* Special Users : "Guest (NOT Logined) users", "Logine users"
+
+There're two users in user permission list, "Guest (NOT Logined) users" and "Logine users".
+These two special user permissions are applied to implicit users and groups.
+For example, YakiBiki applies "Read Only" permissions only to users who don't belongs to any of GroupA, GroupX, GroupY.
+
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | Read Only |
+| GroupA | non:invisible |
+| GroupX | non:invisible |
+| GroupY | non:invisible |
+
+* Actual Examples.
+
+See following link, for actual ACL configuration examples.
+&help(ACL_Examples)
+
+
+&br()
+
+----
+[ &help() ]

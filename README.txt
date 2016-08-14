@@ -1,0 +1,1 @@
+See, ./misc/README_(each language, encoding).txt. Thank you.

@@ -1,0 +1,27 @@
+// $Id: HelpTop.txt 553 2009-07-18 04:24:26Z msakamoto-sf $
+* What is YakiBiki ?
+
+YakiBiki, "Yet Another Blog Like Wiki", is one of Wiki clones.
+You can set customizable ACL (access control list) to not only text data, but also images and attachement files uploaded from web browser, and bookmark urls.
+If you want to edit, click the "edit" icon on page header.
+
+If you were a beginner for Wiki Format, you can try it at [[SandBox]] page freely.
+You can break [[SandBox]] page contents, no problem, don't worry. Any one can fix, restore it.
+
+* Help Pages
+
+: &help(FAQ) : FAQ
+: &help(About_ACL) : 
+Details of ACL(access control list). If you want actual samples, see &help(ACL_Examples) .
+: &help(About_Template) : 
+Details of "Template", and auto-replace-keywords in template titles.
+: &help(WikiFormat) : 
+Details of YakiBik's Wiki Style Format. Available YakiBiki's Wiki plugins, see pages below.
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+
+
+
+&br()
+&br()

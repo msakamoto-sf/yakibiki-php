@@ -1,0 +1,15 @@
+<{include file="theme:header_tpl.html" title_img="logout"}>
+
+<div class="contents_c" style="text-align: center">
+
+<h3><{t}>Logouted<{/t}></h3>
+<br />
+<a href="<{yb_make_url mdl=login}><{if $back }>&back=<{$back|rawurlencode}><{/if}>" title="login"><img src="<{_YB key=url.themes}>/icons/login.png" alt="login icon" width="32"/>&nbsp;<{t}>login<{/t}></a>
+<br />
+<br />
+<{if $back }>
+<{t}>Back to<{/t}> : <a href="<{$back}>"><{$back}></a>
+<{/if}>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

@@ -1,0 +1,439 @@
+// $Id: WikiFormat.txt 466 2008-11-22 02:15:37Z msakamoto-sf $
+[ &help() ]
+
+Special Thanks to KinoWiki. Wiki Parser of YakiBiki is based on KinoWiki.
+These help documents are based on KinoWiki help, too.
+YakiBiki was not existed If KinoWiki was not.
+
+#help_outline||
+----
+
+* Block Element
+
+Renders multiple text lines as block eleemnt.
+In YakiBiki, these style elements are handled as block element.
+- Heading
+- Formatted Text
+- Blockquote
+- List
+- Defenition List
+- Table
+- BlockPlugin
+
+** Heading
+
+ *Heading
+
+Put &pre(){*} at head of line. There're 4 levels, &pre(){*, **, ***, ****}, each marks apply to <h3> - <h6>.
+
+** Formatted Text
+
+  Formatted Text with html escape.
+ ^ Space
+	* "><&' *
+ ^ TAB character
+
+> Formatted Text with html escape.
+>	* "><&' *
+
+Put half-width space or tab character at head of line. Wiki style formats in formatted text don't be parsed as wiki.
+
+** Blockquote
+
+ >quoted text
+>quoted text
+
+Put ">" at head of line.
+Note, if you insert " "(half-width-space) between ">" and first character like below, it will be displayed as "Blockquote of formatted text".
+ > quoted text
+  ^ half-width-space
+Be careful when you copy and paste block quote text from e-mail, forum page, e.t.c.
+
+
+** List
+
+ - Level 1
+ -- Level 1_1
+ -- Level 1_2
+ --- Level 1_2_1
+ + Level 2
+ ++ Level 2_1
+ ++ Level 2_2
+
+>- Level 1
+>-- Level 1_1
+>-- Level 1_2
+>--- Level 1_2_1
+>+ Level 2
+>++ Level 2_1
+>++ Level 2_2
+
+Put "-" at head of line. Double or Triple "-" makes nested list.
+Putting "+" in place of "-" makes numbered list.
+
+** Defenition List
+
+:Definition1:
+Description1Description1Description1
+Description1
+:Definition2:
+:Definition3:
+Description1
+
+Surrounding text with ":" makes definition list.
+You can insert line-break in description because descriptions are handled as block element.
+But empty line means end of definition list. If you want to insert empty line in description, use "block" plugin.
+
+ :Definition1:#block||>Description1
+ 
+ Description1
+ 
+ Description1
+ ||<
+ :Definition2:Description2
+
+>:Definition1:#block||>Description1
+>
+>Description1
+>
+>Description1
+>||<
+>:Definition2:Description2
+
+** Table
+
+ |Heading1|Heading2|hR
+ |contents1|contents2|
+ |contents3|contents4|c
+ |CENTER:contents5|RIGHT,BGCOLOR(yellow):contents6|
+ |AAAAAAAAAAA|BBBBBBBBBBB|H
+
+|Heading1|Heading2|hR
+|contents1|contents2|
+|contents3|contents4|c
+|CENTER:contents5|RIGHT,BGCOLOR(yellow):contents6|
+|AAAAAAAAAAA|BBBBBBBBBBB|H
+
+Partitioning columns by "|" makes table.
+Putting "h" at end of line makes its line heading("<th>").
+Putting "l", "c", "r" at end of line makes its line alignments "left", "center", "right".
+If you want to set alignment to each cells individually, begin cell contents with "LEFT:", "CENTER:", "RIGHT:" prefix.
+"BGCOLOR(colorname)" changes back ground color. Join these modifications with ",".
+
+** BlockPlugin
+
+ // non arguments.
+ #plugin_name||
+ 
+ // param1 only.
+ #plugin_name|param1|
+ 
+ // param1 + param2 (param2 can include empty lines)
+ #plugin_name|param1|>
+ param2
+ ||<
+ 
+ // param2 only.
+ #plugin_name||>
+ param2
+ ||<
+
+You can use Wiki Plugin if installed. See detailed descriptions for each plugins.
+See below links for available plugins in YakiBiki default setup. Plugins which "Type" is "block" are BlockPlugin.
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+
+* Inline Element
+
+Represents a line, or continuous characters in line.
+In YakiBiki, these style elements are handled as inline element.
+- URL, mail address
+- YakiBiki-Link(BracketLink)
+- Emphasis, Italic, StrikeOutLine modifications
+- Footnote
+- InlinePlugin
+
+** URL, mail address
+
+URLs and mail addresses in text are automatically converted into external links.
+
+ URL : http://www.google.com/
+ mail address : admin@example.com
+
+>URL : http://www.google.com/
+>mail address : admin@example.com
+
+** YakiBiki-Link(BracketLink)
+
+Bracket Link Variations Examples
+ # Without Alias
+ [[http://www.google.com/]]
+ [[yb://relative/link/path]]
+ [[admin@example.com]]
+ [[1]] to FrontPage ID
+ [[SideBar]]
+ 
+ # With Alias
+ [[AliasName>http://www.google.com/]]
+ [[AliasName>yb://relative/link/path]]
+ [[AliasName>admin@example.com]]
+ [[AliasName>1]]
+ [[AliasName>SideBar]]
+
+Surrounding YakiBiki page name or id with double brackets makes internal links for YakiBiki.
+ Link to FrontPage(By ID) -> [[1]]
+ Link to FrontPage(By page name) -> [[FrontPage]]
+>Link to FrontPage(By ID) -> [[1]]
+>Link to FrontPage(By page name) -> [[FrontPage]]
+
+Displays links if urls or mail addresses were surrounded.
+ Link to Google -> [[http://www.google.com/]]
+ Link to mail address -> [[admin@example.com]]
+>Link to Google -> [[http://www.google.com/]]
+>Link to mail address -> [[admin@example.com]]
+
+Displays relative path to _YB('url') if you start "yb://".
+ [[yb://dir1/dir2/dir3/image.jpg]]
+ ->
+ _YB('url') + '/dir1/dir2/dir3/image.jpg
+>[[yb://dir1/dir2/dir3/image.jpg]]
+
+Set "Alias>URL" or "Alias>MailAddress" makes links which display text is "Alias".
+ [[Google>http://www.google.com]]
+ [[Some Mail Address>admin@example.com]]
+[[Google>http://www.google.com]]
+[[Some Mail Address>admin@example.com]]
+
+
+** Emphasis, Italic, StrikeOutLine modifications
+
+See following samples
+
+ '' Emphasis ''
+ Emphasis with **Asterisk**
+ '''Italic'''
+ Italic with *Asterisk*
+ %%StrikeOutLine%%
+
+>'' Emphasis ''
+>Emphasis with **Asterisk**
+>'''Italic'''
+>Italic with *Asterisk*
+>%%StrikeOutLine%%
+
+** Footnote
+
+ ((Footnote))
+
+Surrondig text with double parenthesis makes footnote.
+
+** InlinePlugin
+
+ // non arguments.
+ &plugin_name()
+ 
+ // param1 only.
+ &plugin_name(param1)
+ 
+ // param1 + param2.
+ &plugin_name(param1){ param2 }
+ 
+ // param2 only.
+ &plugin_name(){ param2 }
+
+You can use Wiki Plugin if installed. See detailed descriptions for each plugins.
+See below links for available plugins in YakiBiki default setup. Plugins which "Type" is "inline" are InlinePlugin.
+- &help(Plugin_Wiki_A-G)
+- &help(Plugin_Wiki_H-O)
+- &help(Plugin_Wiki_P-Z)
+
+* Others
+
+Introduces other element, hints.
+
+** How to display special characters handled as Wiki style format by default ?
+
+ You can use "pre" inline plugin ... such as &pre(){*, |, [, #, & }.
+&rarr;
+You can use "pre" inline plugin to display wiki format special characters such as &pre(){*, |, [, #, & }.
+
+** How to put &pre(){*} at head of line, not as heading style format.
+
+You can insert "void" plugin at head of line. "void" inline plugin is replaced to empty character
+ &void()*Emphasis, Not Heading.*
+&void()*Emphasis, Not Heading.*
+
+
+** line-break plugin
+
+You can use "br" inline plugin when you want to insert line-break in table cell contents.
+ | aaaa &br() bbb | cccc dddd |
+| aaaa &br() bbb | cccc dddd |
+
+** Horizontal Line
+
+Putting four or more "-" at head of line displays horizontal line (<hr />).
+ ----
+----
+
+** Comment
+
+Putting double "/" at head of line indicates comment line, YakiBiki doesn't output in HTML.
+ // doesn't be displayed till line-end.
+// doesn't be displayed till line-end.
+
+** HTML Character Entities
+
+You can use HTML Character Entities(character name, code) such as greek, symbol characters.
+see, http://www.w3.org/TR/html4/sgml/entities.html
+
+*** ISO 8859-1 (Latin1) series
+
+| &nbsp; | &amp;#160; | &amp;nbsp; |
+| &iexcl; | &amp;#161; | &amp;iexcl; |
+| &cent; | &amp;#162; | &amp;cent; |
+| &pound; | &amp;#163; | &amp;pound; |
+| &curren; | &amp;#164; | &amp;curren; |
+| &yen; | &amp;#165; | &amp;yen; |
+| &brvbar; | &amp;#166; | &amp;brvbar; |
+| &sect; | &amp;#167; | &amp;sect; |
+| &uml; | &amp;#168; | &amp;uml; |
+| &copy; | &amp;#169; | &amp;copy; |
+| &ordf; | &amp;#170; | &amp;ordf; |
+| &laquo; | &amp;#171; | &amp;laquo; |
+| &not; | &amp;#172; | &amp;not; |
+| &shy; | &amp;#173; | &amp;shy; |
+| &reg; | &amp;#174; | &amp;reg; |
+| &macr; | &amp;#175; | &amp;macr; |
+| &deg; | &amp;#176; | &amp;deg; |
+| &plusmn; | &amp;#177; | &amp;plusmn; |
+| &sup2; | &amp;#178; | &amp;sup2; |
+| &sup3; | &amp;#179; | &amp;sup3; |
+| &acute; | &amp;#180; | &amp;acute; |
+| &micro; | &amp;#181; | &amp;micro; |
+| &para; | &amp;#182; | &amp;para; |
+| &middot; | &amp;#183; | &amp;middot; |
+| &cedil; | &amp;#184; | &amp;cedil; |
+| &sup1; | &amp;#185; | &amp;sup1; |
+| &ordm; | &amp;#186; | &amp;ordm; |
+| &raquo; | &amp;#187; | &amp;raquo; |
+| &frac14; | &amp;#188; | &amp;frac14; |
+| &frac12; | &amp;#189; | &amp;frac12; |
+| &frac34; | &amp;#190; | &amp;frac34; |
+| &iquest; | &amp;#191; | &amp;iquest; |
+| &times; | &amp;#215; | &amp;times; |
+| &Agrave; | &amp;#192; | &amp;Agrave; |
+| &Aacute; | &amp;#193; | &amp;Aacute; |
+| &Acirc; | &amp;#194; | &amp;Acirc; |
+| &Atilde; | &amp;#195; | &amp;Atilde; |
+| &Auml; | &amp;#196; | &amp;Auml; |
+| &Aring; | &amp;#197; | &amp;Aring; |
+| &AElig; | &amp;#198; | &amp;AElig; |
+| &Ccedil; | &amp;#199; | &amp;Ccedil; |
+| &Egrave; | &amp;#200; | &amp;Egrave; |
+| &Eacute; | &amp;#201; | &amp;Eacute; |
+| &Ecirc; | &amp;#202; | &amp;Ecirc; |
+| &Euml; | &amp;#203; | &amp;Euml; |
+| &Igrave; | &amp;#204; | &amp;Igrave; |
+| &Iacute; | &amp;#205; | &amp;Iacute; |
+| &Icirc; | &amp;#206; | &amp;Icirc; |
+| &Iuml; | &amp;#207; | &amp;Iuml; |
+| &ETH; | &amp;#208; | &amp;ETH; |
+| &Ntilde; | &amp;#209; | &amp;Ntilde; |
+| &Ograve; | &amp;#210; | &amp;Ograve; |
+| &Oacute; | &amp;#211; | &amp;Oacute; |
+| &Ocirc; | &amp;#212; | &amp;Ocirc; |
+| &Otilde; | &amp;#213; | &amp;Otilde; |
+| &Ouml; | &amp;#214; | &amp;Ouml; |
+| &Oslash; | &amp;#216; | &amp;Oslash; |
+| &Ugrave; | &amp;#217; | &amp;Ugrave; |
+| &Uacute; | &amp;#218; | &amp;Uacute; |
+| &Ucirc; | &amp;#219; | &amp;Ucirc; |
+| &Uuml; | &amp;#220; | &amp;Uuml; |
+| &Yacute; | &amp;#221; | &amp;Yacute; |
+| &THORN; | &amp;#222; | &amp;THORN; |
+| &szlig; | &amp;#223; | &amp;szlig; |
+
+*** Marks, Symbols
+
+| &quot; | &amp;#34; | &amp;quot; |
+| &amp; | &amp;#38; | &amp;amp; |
+| &lt; | &amp;#60; | &amp;lt; |
+| &gt; | &amp;#62; | &amp;gt; |
+| &rarr; | &amp;#8594; | &amp;rarr; |
+| &larr; | &amp;#8592; | &amp;larr; |
+| &uarr; | &amp;#8593; | &amp;uarr; |
+| &darr; | &amp;#8595; | &amp;darr; |
+| &rArr; | &amp;#8658; | &amp;rArr; |
+| &lArr; | &amp;#8656; | &amp;lArr; |
+| &uArr; | &amp;#8657; | &amp;uArr; |
+| &dArr; | &amp;#8659; | &amp;dArr; |
+| &hArr; | &amp;#8660; | &amp;hArr; |
+| &harr; | &amp;#8596; | &amp;harr; |
+| &crarr; | &amp;#8629; | &amp;crarr; |
+| &ndash; | &amp;#8211; | &amp;ndash; |
+| &mdash; | &amp;#8212; | &amp;mdash; |
+| &lsquo; | &amp;#8216; | &amp;lsquo; |
+| &rsquo; | &amp;#8217; | &amp;rsquo; |
+| &sbquo; | &amp;#8218; | &amp;sbquo; |
+| &ldquo; | &amp;#8220; | &amp;ldquo; |
+| &rdquo; | &amp;#8221; | &amp;rdquo; |
+| &bdquo; | &amp;#8222; | &amp;bdquo; |
+| &dagger; | &amp;#8224; | &amp;dagger; |
+| &Dagger; | &amp;#8225; | &amp;Dagger; |
+| &permil; | &amp;#8240; | &amp;permil; |
+| &euro; | &amp;#8364; | &amp;euro; |
+| &sdot; | &amp;#8901; | &amp;sdot; |
+| &loz; | &amp;#9674; | &amp;loz; |
+
+*** Mathematical symbols
+
+| &empty; | &amp;#8709; | &amp;empty; |
+| &lceil; | &amp;#8968; | &amp;lceil; |
+| &rfloor; | &amp;#8971; | &amp;rfloor; |
+| &prod; | &amp;#8719; | &amp;prod; |
+| &minus; | &amp;#8722; | &amp;minus; |
+| &lowast; | &amp;#8727; | &amp;lowast; |
+| &notin; | &amp;#8713; | &amp;notin; |
+| &lfloor; | &amp;#8970; | &amp;lfloor; |
+| &rceil; | &amp;#8969; | &amp;rceil; |
+| &lang; | &amp;#9001; | &amp;lang; |
+| &rang; | &amp;#9002; | &amp;rang; |
+| &sim; | &amp;#8764; | &amp;sim; |
+| &cong; | &amp;#8773; | &amp;cong; |
+| &asymp; | &amp;#8776; | &amp;asymp; |
+| &le; | &amp;#8804; | &amp;le; |
+| &ge; | &amp;#8805; | &amp;ge; |
+| &ne; | &amp;#8800; | &amp;ne; |
+| &infin; | &amp;#8734; | &amp;infin; |
+| &there4; | &amp;#8756; | &amp;there4; |
+| &isin; | &amp;#8712; | &amp;isin; |
+| &ni; | &amp;#8715; | &amp;ni; |
+| &sube; | &amp;#8838; | &amp;sube; |
+| &supe; | &amp;#8839; | &amp;supe; |
+| &sub; | &amp;#8834; | &amp;sub; |
+| &sup; | &amp;#8835; | &amp;sup; |
+| &cup; | &amp;#8746; | &amp;cup; |
+| &cap; | &amp;#8745; | &amp;cap; |
+| &and; | &amp;#8743; | &amp;and; |
+| &or; | &amp;#8744; | &amp;or; |
+| &forall; | &amp;#8704; | &amp;forall; |
+| &exist; | &amp;#8707; | &amp;exist; |
+| &ang; | &amp;#8736; | &amp;ang; |
+| &perp; | &amp;#8869; | &amp;perp; |
+| &part; | &amp;#8706; | &amp;part; |
+| &nabla; | &amp;#8711; | &amp;nabla; |
+| &equiv; | &amp;#8801; | &amp;equiv; |
+| &radic; | &amp;#8730; | &amp;radic; |
+| &prop; | &amp;#8733; | &amp;prop; |
+| &int; | &amp;#8747; | &amp;int; |
+| &nsub; | &amp;#8836; | &amp;nsub; |
+| &sum; | &amp;#8721; | &amp;sum; |
+| &oplus; | &amp;#8853; | &amp;oplus; |
+| &otimes; | &amp;#8855; | &amp;otimes; |
+
+&br()
+
+----
+[ &help() ]

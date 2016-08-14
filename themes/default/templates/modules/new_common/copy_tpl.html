@@ -1,0 +1,49 @@
+<{include file="theme:header_tpl.html" title_img=$title_img}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<form action="<{_YB key=current_url}>" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+<table class="formtable">
+	<tbody>
+
+	<{$dtform|smarty:nodefaults}>
+
+	<tr>
+		<th align="right"><{t}>created at<{/t}></th>
+		<td align="left"><{yb_form_datetime t=$virtual.published_at name=published_at}></td>
+	</tr>
+	<tr>
+		<th align="right">ACL</th>
+		<td align="left"><{yb_dt_acl_selectmenu default=$virtual.acl}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>category<{/t}></th>
+		<td align="left"><{yb_dt_categories_checkboxes default=$virtual.categories}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>moderated settings<{/t}></th>
+		<td align="left">
+			<input type="checkbox" name="is_versions_moderated" value="1" id="is_versions_moderated" <{if $virtual.is_versions_moderated}>checked="checked"<{/if}> />
+			<label for="is_versions_moderated"><{t}>version<{/t}></label><br />
+			<input type="checkbox" name="is_comments_moderated" value="1" id="is_comments_moderated" <{if $virtual.is_comments_moderated}>checked="checked"<{/if}> />
+			<label for="is_comments_moderated"><{t}>comment<{/t}></label><br />
+		</td>
+	</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" value="<{t}>save<{/t}>" />&nbsp;
+				<input type="reset" value="<{t}>reset<{/t}>" /><br />
+				<{yb_const var=YB_FORM_REQUIRED_MARK}><{t}>is required item.<{/t}>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

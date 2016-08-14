@@ -1,0 +1,51 @@
+<{include file="theme:header_tpl.html" title_img="group_delete"}>
+<div class="contents_c">
+
+<h3><{t}>Following group is deleted.<{/t}></h3>
+
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>detail<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left"><{$form.html.name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>users<{/t}></th>
+		<td align="left">
+<{if count($mates) == 0 }>-<{else}>
+<ul>
+<{foreach from=$mates item=mate}>
+<li><{$mate.name}>&nbsp;(id=<{$mate.id}>, &nbsp;mail=<{$mate.mail}>)</li>
+<{/foreach}>
+</ul>
+<{/if}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>owner<{/t}></th>
+		<td align="left"><{$virtual.owner.name}>(<{$virtual.owner.id}>)</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>created at<{/t}></th>
+		<td align="left"><{$virtual.created_at|yb_strftime}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>updated at<{/t}></th>
+		<td align="left"><{$virtual.updated_at|yb_strftime}></td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<a href="<{yb_make_url mdl=group}>"><{t}>Back To List<{/t}></a>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

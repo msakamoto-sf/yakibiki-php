@@ -1,0 +1,61 @@
+<{include file="theme:header_tpl.html" title_img="user_add"}>
+<div class="contents_c">
+
+<form action="<{yb_xhwlay_url mdl=user}>" method="POST">
+<{$form.html.hidden}>
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>new user<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left"><{$form.html.name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>mail address<{/t}></th>
+		<td align="left"><{$form.html.mail}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>password<{/t}></th>
+		<td align="left"><{$form.html.password}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>status<{/t}></th>
+		<td align="left">
+			<{$form.html.status}><br />
+			<span style="color: red; font-weight: bold; font-size: small;">
+			NOTE1 : <{t}>You can't disable your self.<{/t}><br />
+			NOTE2 : <{t}>There must be 1 valid system administrator at least.<{/t}>
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>role<{/t}></th>
+		<td align="left">
+			<{$form.html.role}><br />
+			<span style="color: red; font-weight: bold; font-size: small;">
+			NOTE : <{t}>There must be 1 system administrator at least.<{/t}>
+			</span>
+		</td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="_event_onCreate_Save" value="<{t}>save<{/t}>" />&nbsp;
+				<input type="submit" name="_event_onCreate_Input" value="<{t}>back<{/t}>" /><br />
+				<font color="red">*</font><{t}>is required item.<{/t}>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</form>
+
+<br />
+<a href="<{yb_xhwlay_url mdl=user _event_=onBackToList}>"><{t}>Cancel &amp; Back To List<{/t}></a>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

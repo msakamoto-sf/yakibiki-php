@@ -1,0 +1,11 @@
+* FrontPage
+
+Welcome to YakiBiki! Build up your own site from here.
+
+** Edit Top Page
+
+Current top page is [[FrontPage]]. You can change it to your original page, or, directly edit [[FrontPage]].
+
+** Edit Side Bar
+
+Current side bar is [[SideBar]]. You can chanit to your original sidebar page, or, directly edit [[SideBar]].

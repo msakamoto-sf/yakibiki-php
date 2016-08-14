@@ -1,0 +1,17 @@
+<{include file="theme:header_tpl.html" title_img="backup"}>
+<div class="contents_c">
+
+<h3><{t}>Do you backup your YakiBiki datas ?<{/t}></h3>
+<form action="<{_YB key=current_url}>" method="POST">
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+<input type="hidden" name="do_backup" value="ok" />
+<input type="submit" value="<{t}>Yes. Do Backup, Now.<{/t}>" />
+</form>
+
+<{if $backup_msg}>
+<hr width="30%">
+<h3><{$backup_msg}></h3>
+<{/if}>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

@@ -1,0 +1,444 @@
+// $Id: Plugin_Wiki_A-G.txt 562 2009-07-22 07:33:55Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+
+* align
+
+: 説明 : 文字の表示位置を指定する。
+: ファイル : yb_plugin_wiki_align.php
+: タイプ : inline((インラインとしては殆どナンセンス。)), block
+: 引数 : "left", "center", "right" のいずれか。これら以外は"left"として扱われる。
+
+ abc 
+ &align(right) { def "><&' }
+ &align(center) { ghi }
+ &align(left) { jkl }
+ mno
+----
+abc 
+&align(right) { def "><&' }
+&align(center) { ghi }
+&align(left) { jkl }
+mno
+----
+ line1 "><&'
+ #align|right|>
+ line2 "><&'
+ line3
+ ||<
+ #align|left|>
+ line4 "><&'
+ line5
+ ||<
+ #align|center|>
+ line6 "><&'
+ line7
+ ||<
+ line8
+----
+line1 "><&'
+#align|right|>
+line2 "><&'
+line3
+||<
+#align|left|>
+line4 "><&'
+line5
+||<
+#align|center|>
+line6 "><&'
+line7
+||<
+line8
+
+* amazon
+
+: 説明 : Amazonアソシエイト（アフィリエイト）の商品リンクを表示する。
+: ファイル : yb_plugin_wiki_amazon.php
+: タイプ : inline, block
+: 引数 : (無し)
+
+Amazonアソシエイトが作成するHTMLタグをコピーしてそのまま貼り付けて使う。<iframe>(テキストとイメージ)形式と<a>+<img>(テキストのみ)形式を認識する。
+
+ #amazon||>
+ <iframe src="xxyy" style="width:120px;height:240px;" 
+ scrolling="no" marginwidth="0" marginheight="0" 
+ frameborder="0"></iframe>
+ ||<
+
+ &amazon() { <iframe src="xxyy" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe> }
+
+ #amazon||>
+ <a href="xxyy">（本のタイトル）</a>
+ <img src="wwzz" width="1" height="1" border="0" alt="" 
+ style="border:none !important; margin:0px !important;" />
+ ||<
+
+ &amazon() { <a href="xxyy">（本のタイトル）</a><img src="wwzz" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /> }
+
+
+* anchor
+
+: 説明 : (outlineプラグイン専用 : ページ内の見出し要素へのリンクを表示する。)
+: ファイル : yb_plugin_wiki_anchor.php
+: タイプ : inline
+: 引数 : ページ内の見出し要素のID属性
+
+ &anchor(1234) { 見出し }
+
+* block
+
+: 説明 : ブロック要素として表示する。
+: ファイル : yb_plugin_wiki_block.php
+: タイプ : block
+: 引数 : (無し)
+
+ line1
+ #block||>
+ line2 "><&'
+ line3
+ line4
+ ||<
+ line5
+----
+line1
+#block||>
+line2 "><&'
+line3
+line4
+||<
+line5
+
+* blockquote
+
+: 説明 : 引用ブロックとして表示する。
+: ファイル : yb_plugin_wiki_blockquote.php
+: タイプ : block
+: 引数 : (無し)
+
+ line1
+ #blockquote||>
+ line2 "><&'
+ line3
+ line4
+ ||<
+ line5
+----
+line1
+#blockquote||>
+line2 "><&'
+line3
+line4
+||<
+line5
+
+* br
+
+: 説明 : 改行("<br />"タグ)を挿入する。
+: ファイル : yb_plugin_wiki_br.php
+: タイプ : inline, block(...nonsense?)
+: 引数 : (無し)
+
+ | abc | def &br() ghi | jkl |
+----
+| abc | def &br() ghi | jkl |
+----
+ line1
+ #br||
+ line2
+----
+line1
+#br||
+line2
+
+* cat
+
+: 説明 : 行番号付き整形済テキストとして表示する。
+: ファイル : yb_plugin_wiki_cat.php
+: タイプ : block
+: 引数 :#block||>
+ #cat| (行番号桁数) (, 初期行番号 (, 行番号増分) ) |> ... ||<
+行番号は右寄せで表示される。行番号桁数が"0"(数字のゼロ)で始まる場合、ゼロ埋め表示される。それ以外の場合は空白埋めで表示される。
+||<
+
+
+ #cat||>
+ line1 "><&'
+ line2
+ line3
+ ||<
+----
+#cat||>
+line1 "><&'
+line2
+line3
+||<
+----
+ // 行番号表示の桁数は10桁右寄せ、スペース埋め
+ #cat|10|>
+ line1 "><&'
+ line2
+ line3
+ ||<
+----
+#cat|10|>
+line1 "><&'
+line2
+line3
+||<
+----
+ // 5桁0埋め
+ #cat|05|>
+ line1 "><&'
+ line2
+ line3
+ ||<
+----
+#cat|05|>
+line1 "><&'
+line2
+line3
+||<
+----
+ // 行番号の始まりは10
+ #cat|05,10|>
+ line1 "><&'
+ line2
+ line3
+ ||<
+----
+#cat|05,10|>
+line1 "><&'
+line2
+line3
+||<
+----
+
+ // 始まりを10にして、3ずつ増やす。
+ #cat|05,10,3|>
+ line1 "><&'
+ line2
+ line3
+ ||<
+----
+#cat|05,10,3|>
+line1 "><&'
+line2
+line3
+||<
+
+* clear
+
+: 説明 : 回り込みを解除する。
+: ファイル : yb_plugin_wiki_clear.php
+: タイプ : block
+: 引数 : "clear"スタイルシートプロパティに指定可能な値("right", "left", "both", "none")
+
+float指定した"image"インラインプラグインと併せて使うと効果的。
+
+ #clear|right|
+ -> <div style="clear: right;"></div>
+ 
+ #clear|left|
+ -> <div style="clear: left;"></div>
+ 
+ #clear|both|
+ -> <div style="clear: both;"></div>
+ 
+ #clear|none|
+ -> <div style="clear: none;"></div>
+
+
+* code
+
+: 説明 : PEARライブラリのText_Highlighterを使ってプログラミング言語などのソースコードを色付けし、整形済みテキストとして表示する。
+: ファイル : yb_plugin_wiki_code.php
+: タイプ : block
+: 引数 :
+ #code| 言語名 (, numbers) (, tabsize=タブ文字数) |> ... ||<
+
+使用できる"言語名"は、2009/07時点で以下のとおり。大文字・小文字の区別は無し。
+
+- ABAP
+- C
+- CPP
+- CSS
+- DIFF
+- DTD
+- HTML
+- JAVA
+- JAVASCRIPT
+- MYSQL
+- PERL
+- PHP
+- PYTHON
+- RUBY
+- SH
+- SQL
+- VBSCRIPT
+- XML
+
+----
+ #code|PHP|>
+ <?php
+ 	print "Hello, World\n";
+ ||<
+
+#code|PHP|>
+<?php
+	print "Hello, World\n";
+||<
+----
+ #code|c,numbers,tabsize=2|>
+ #include <stdio.h>
+ int main(int argc, char *argv[]) {
+ 	/* \"><&' */
+ 	printf("Hello, World\n");
+ 	exit(0);
+ }
+ ||<
+
+#code|CPP,numbers,tabsize=2|>
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+	/* \"><&' */
+	printf("Hello, World\n");
+	exit(0);
+}
+||<
+----
+引数が無い場合は、"pre"ブロックプラグインと同じ表示になる。
+ #code||>
+ #include <stdio.h>
+ int main(int argc, char *argv[]) {
+ 	/* \"><&' */
+ 	printf("Hello, World\n");
+ 	exit(0);
+ }
+ ||<
+#code||>
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+	/* \"><&' */
+	printf("Hello, World\n");
+	exit(0);
+}
+||<
+
+
+* color
+
+: 説明 : 文字色を変更する。
+: ファイル : yb_plugin_wiki_color.php
+: タイプ : inline, block
+: 引数 : CSSのcolorプロパティで指定可能な色指定文字列
+
+ abc &color(red) { def * def "><&' * } ghi
+----
+abc &color(red) { def * def "><&' * } ghi
+----
+ line1
+ #color|#9900AA|>
+ '' line2 "><&' ''
+ line3
+ line4
+ ||<
+ line5
+----
+line1
+#color|#9900AA|>
+'' line2 "><&' ''
+line3
+line4
+||<
+line5
+
+* del
+
+: 説明 : 取消線を表示する。
+: ファイル : yb_plugin_wiki_del.php
+: タイプ : inline
+: 引数 : (無し)
+
+ abc &del() { def ''' ghi"><&' ''' jkl } mno
+----
+abc &del() { def ''' ghi"><&' ''' jkl } mno
+
+* gmap
+
+: 説明 : GoogleMapを表示する。
+: ファイル : yb_plugin_wiki_gmap.php
+: タイプ : inline
+: 引数 :#block||>
+ &gmap(パラメータ1)
+ &gmap(パラメータ1){ パラメータ2 }
+||<
+
+gmapプラグインを使用するには、以下の準備が必要。
++ config.php にて _YB('js.enable') をtrueにセットする。&color(red){デフォルトではfalse}
++ config.php にて _YB('js.jquery.path') を正しいjQueryのファイルを指すようにする。((gmapプラグインは内部でjQueryを使用している為))
++ config.php にて _YB('js.google.map.key') に Google Maps API Key を設定する。
+++ Google Maps API Key は Google Maps のAPIサイトから入手する。利用規約についてはGoogleに従う。
+++ config.php のデフォルトでは、 datas/googlemapkey というファイルから自動的に読み取るようになっている。
+
+_YB('js.enable')がfalseになっているか、_YB('js.google.map.key')が空の場合は YakiBikiのGoogleMaps用JavaScriptは展開されない。
+代わりに、座標とズーム率が指定されたGoogleMapへのURLリンクを表示する。
+
+gmapプラグインのパラメータ1/2の詳細を以下に示す。
+
+** パラメータ1
+
+地図の大きさやコントロールの機能を指定する。
+| id | 地図のID(英数字のみ, <div>タグのid属性)((ページのID値が自動的に追加される為、複数ページで同一のID値を使用しても問題ない。)) |
+| w | 地図の幅をピクセル単位で指定する。 |
+| h | 地図の高さをピクセル単位で指定する。 |
+| lat | 緯度(latitude)を指定する。 |
+| lng | 緯度(longitude)を指定する。 |
+| zoom | ズーム率を指定する。 |
+| fixed | 地図を固定する。マウスでドラッグできなくなる。値を持たない。 |
+| marker | lat, lngで指定したポイントにデフォルトのマークを表示する。 |
+| control | 典型的な幾つかのコントロールを指定する。(後述) |
+
+全パラメータを省略可能。"id"パラメータ省略時は、ランダムな英数字が自動的に使われる。
+fixed以外のパラメータは、"名前=値"の形式で指定する。複数のパラメータを並べる時は","(カンマ)で区切る。
+fixedは値を持たない。
+
+controlで指定可能なコントロールを以下に示す。使いたいものを"+"で結んで指定する。
+| small | 拡大縮小・移動が可能なミニコントローラを表示する。 |
+| large | 拡大縮小・移動が可能なスライダ付コントローラを表示する。 |
+| maptype | 表示形式を変更するコントローラを表示する。 |
+| where | 現在表示中の中心点の緯度・経度を取得するコントローラを表示する。 |
+
+** パラメータ2
+
+パラメータ2は、マーカーがクリックされた時に表示される情報ウインドウのテキストを設定する。
+markerがfalseに設定された場合は無視される。
+パラメータ2が省略された場合は、単にマーカーが表示されるだけとなる。
+
+** 例
+
+- id以外は全てデフォルト→北緯0度、東経0度の地図を表示する。
+ &gmap(id=map0)
+- 東京駅をピンマーク付きで表示する。markerの省略時はtrue。
+ &gmap(lat=35.680987,lng=139.767358,zoom=8) { 東京駅です！ }
+- 東京駅＋表示を固定する。(fixedオプション)
+ &gmap(id=map2,lat=35.680987,lng=139.767358,zoom=8,fixed) { 東京駅です！ }
+- 北緯0度、東経0度で、largeコントロール・maptypeコントロール・whereコントロールを使用する。マーカーは表示しない。
+ &gmap(id=map3,control=large+maptype+where,marker=false)
+- 東京駅を200px x 100pxの地図で表示する。smallコントロールとwhereコントロールのみ用いる。
+ &gmap(lat=35.680987,lng=139.767358,zoom=8,w=200,h=100,control=small+where)
+
+** パフォーマンス上の注意点
+
+複数のGoogleMapが１つのHTMLページ上にあると、ブラウザのパフォーマンスが劣化する場合がある。
+ひどい場合は全てのMapが表示されるまで数分間待たされ、しかもその間はCPU使用率が100%に達する時すらある。
+これは検索モードで複数の記事を同時に表示した場合に容易に発生する。
+'' "more"プラグインを書いた後に"gmap"プラグインを使う事を強く推奨する。 '' そうすれば、検索モードではgmapプラグインは実行されない為、パフォーマンスは維持される。
+
+
+&br()
+
+----
+[ &help() ]

@@ -1,0 +1,92 @@
+Wiki書式のサンプル集
+
+#outline||
+-----
+
+* Inline Formats
+
+ external site link : [http://www.google.com]
+external site link : [http://www.google.com]
+
+ mail link : [mail@example.com]
+mail link : [mail@example.com]
+
+ bold format(1) : ** bold "><'& **
+ bold format(2) : '' bold "><'& ''
+bold format(1) : ** bold "><'& **
+bold format(2) : '' bold "><'& ''
+
+ italic format(1) : * italic "><'& *
+ italic format(2) : ''' italic "><'& '''
+italic format(1) : * italic "><'& *
+italic format(2) : ''' italic "><'& '''
+
+ deleted text : %% deleted "><'& %%
+deleted text : %% deleted "><'& %%
+
+ footnote1((footnote1 "><'& http://www.google.com )) foobar1.
+ footnote2((footnote2 "><'& http://www.google.com )) foobar2.
+footnote1((footnote1 "><'& http://www.google.com )) foobar1.
+footnote2((footnote2 "><'& http://www.google.com )) foobar2.
+
+* Heading1"><'&
+----
+ preformatted text. "><'&
+ preformatted text. "><'&
+ preformatted text. "><'&
+ preformatted text. "><'&
+** Heading2"><'&
+----
+>blockquote. "><'&
+>blockquote. "><'&
+> blockquote. "><'&
+> blockquote. "><'&
+>blockquote. "><'&
+>blockquote. "><'&
+*** Heading3"><'&
+- item1 "><'&
+-- item1_1 "><'&
+-- item1_2 "><'&
+--- item1_2_1 "><'&
+--- item1_2_2 "><'&
+-- item1_3 "><'&
+- item2 "><'&
+-- item2_1 "><'&
+- item3 "><'&
+
+----
++ item1 "><'&
+++ item1_1 "><'&
+++ item1_2 "><'&
++++ item1_2_1 "><'&
++++ item1_2_2 "><'&
+++ item1_3 "><'&
++ item2 "><'&
+++ item2_1 "><'&
++ item3 "><'&
+
+**** Heading4"><'&
+
+:dt1 "><'&:data definition1 "><'&
+:dt2 "><'&:data definition2 "><'&
+:dt3 "><'&:data definition3 "><'&
+
+----
+
+:dt1 "><'&:data definition1 "><'&
+:dt2 "><'&:data definition2 "><'&
+:dt3 "><'&:data definition3 "><'&
+
+* TABLE examples
+
+|LEFT: data1|right: data2|BGCOLOR(red): data3|CH
+|data4 "><'&|data5 "><'&| * data6 "><'& * |
+|CENTER,bgcolor(yellow): http://example.com/|aaaaaaaa &br() aaaaaaaaa|bbbbbbbbbbbbbb|
+
+----
+
+|L: col10|c: col11|r: col12|h
+|col13|col14|col15|l
+|col16|col17|col18|r
+|col19|col20|col21|c
+

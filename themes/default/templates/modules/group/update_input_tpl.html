@@ -1,0 +1,89 @@
+<{include file="theme:header_tpl.html" title_img="group_edit"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<form action="<{yb_xhwlay_url mdl=group}>" method="POST">
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>detail<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left">
+			<input type="text" name="name" value="<{$form.html.name}>" size="32" /><{$form.html.required_mark|smarty:nodefaults}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>users<{/t}></th>
+		<td align="left">
+<{if count($virtual.mates) == 0 }>-<{else}>
+<ul>
+<{foreach from=$mates item=mate}>
+<li>
+<a href="<{yb_xhwlay_url mdl=group _event_=onUpdate_RemoveUser uid=$mate.id}>" class="iconlink"><{yb_icon icon=user_delete alt='edit' width=24 class='link' title='remove this user' }></a>
+<{$mate.name}>&nbsp;(id=<{$mate.id}>, &nbsp;mail=<{$mate.mail}>)
+</li>
+<{/foreach}>
+</ul>
+<{/if}>
+		</td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="_event_onUpdate_TemporarySave" value="<{t}>temporary save<{/t}>" />&nbsp;
+				<input type="submit" name="_event_onUpdate_Confirm" value="<{t}>confirm<{/t}>" />&nbsp;
+				<input type="reset" value="<{t}>reset<{/t}>" /><br />
+				<font color="red">*</font><{t}>is required item.<{/t}>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+<br />
+<hr />
+
+<{yb_pager_slider_navi navi=$navi}>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>name<{/t}>&nbsp;/&nbsp;<{t}>mail<{/t}><br /><{t}>status<{/t}>&nbsp;/&nbsp;<{t}>role<{/t}></th>
+	<th><{t}>created at<{/t}><br><{t}>updated at<{/t}></th>
+	<th><{t}>operation<{/t}></th>
+</tr>
+<{foreach from=$users item=user}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$user.id}></td>
+	<td class="<{$tmp_class}>" align="left">
+		<{$user.name}>&nbsp;/&nbsp;<{$user.mail}><br />
+		<{if $user.status == constant('YB_USER_STATUS_OK')}>
+			<span style="color: green; font-weight: bold;"><{t}>valid<{/t}></span>
+		<{else}>
+			<span style="color: red; font-weight: bold;"><{t}>invalid<{/t}></span>
+		<{/if}>
+		&nbsp;/&nbsp;
+		<{foreach from=$roles_display_names key=k item=v}>
+			<{if in_array($k, $user.role) }><{$v}><{/if}>
+		<{/foreach}>
+	</td>
+	<td class="<{$tmp_class}>" align="left"><{$user.created_at|yb_strftime}><br><{$user.updated_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" >
+		<a href="<{yb_xhwlay_url mdl=group _event_=onUpdate_AddUser uid=$user.id}>" class="iconlink"><{yb_icon icon=user_add alt='edit' width=24 class='link' title='add this user' }></a></a>
+	</td>
+</tr>
+<{/foreach}>
+</table>
+
+<{yb_pager_sort_limit_navi navi=$navi}>
+
+<br />
+<a href="<{yb_xhwlay_url mdl=group _event_=onBackToList}>"><{t}>Cancel &amp; Back To List<{/t}></a>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

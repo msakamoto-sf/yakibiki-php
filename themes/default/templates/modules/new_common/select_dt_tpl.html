@@ -1,0 +1,17 @@
+<{include file="theme:header_tpl.html" title_img=page_add}>
+<div class="contents_c">
+
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="new" />
+<input type="hidden" name="title" value="<{$v_title}>" />
+<input type="hidden" name="url" value="<{$v_url}>" />
+
+<fieldset id="createmenu" style="width: 30%; margin-left: auto; margin-right: auto;">
+<legend><{yb_icon icon=create alt='create' title='create'}>&nbsp;<{t}>create<{/t}></legend>
+<{yb_dt_create_template_dt_selectmenu}>
+<input type="submit" value="<{t}>create new<{/t}>" />
+
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

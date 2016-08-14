@@ -1,0 +1,84 @@
+// $Id: FAQ.txt 555 2009-07-18 05:18:03Z msakamoto-sf $
+[ &help() ]
+
+FAQネタ随時募集中。 [[開発者の坂本>msakamoto-sf@users.sourceforge.net]]または[[YakiBiki Users (ja)>http://groups.google.co.jp/group/yakibiki-users-ja]]まで。
+
+#help_outline||
+----
+
+* 一般的なFAQ
+
+** YakiBikiの名称の由来は何ですか？
+
+Yet Another Blog Like Wikiのもじりです。
+
+** YakiBikiのライセンスは何ですか？
+
+YakiBikiのライセンスは [[Apache License, Version 2.0>http://www.apache.org/licenses/LICENSE-2.0.html]] になります。
+同梱されているPEAR, Smartyについてはそれぞれのライブラリのライセンスに準じます。
+
+デフォルトテーマのアイコンについては以下のアイコンを使用しております。
+- FAMFAMFAM SILK ICONS
+-- http://www.famfamfam.com/lab/icons/silk/
+- Fugue Icons
+-- http://www.pinvoke.com/
+
+** 誰が開発していますか？サポートは？
+
+2008/11時点では坂本昌彦(msakamoto-sf@users.sourceforge.net)が個人的に開発・サポートを行っています。
+
+
+** メーリングリストはありますか？
+
+ユーザー向けと開発者向けの日本語Google Groupを用意してあります。
+
+- YakiBiki Users (ja)
+-- http://groups.google.co.jp/group/yakibiki-users-ja
+-- yakibiki-users-ja@googlegroups.com
+- YakiBiki Developers (ja)
+-- http://groups.google.co.jp/group/yakibiki-developers-ja
+-- yakibiki-developers-ja@googlegroups.com
+
+あるいは、2008/11時点ではまだ個人ベースの開発ですので直接作者 : msakamoto-sf@users.sourceforge.net までメール得して頂いても構いません。
+
+** 最新のソースコード("trunk")を入手するには？
+
+: Subversionの場合 :#block||>
+ $ svn co https://yakibiki.svn.sourceforge.net/svnroot/yakibiki/yb-php/trunk .
+||<
+: SF.net SCM Repositry Viewer : http://yakibiki.svn.sourceforge.net/viewvc/yakibiki/
+
+
+* 使い方や設定のFAQ
+
+** サイトのURLを変えたいです。どうすれば良いですか？
+
++ libs/config.php の _YB('url') を修正します。
++ temp/caches/ の中のディレクトリを全て削除します。
+
+** 管理画面などで「戻る」ボタンが効きません。
+
+管理画面では各リクエスト毎に状態を保持しています。そのためブラウザの「戻る」ボタンでは画面遷移が上手く動きません。
+入力の途中で一覧に戻りたい時などは、なるべく画面上部の管理メニューアイコンか、「キャンセルして一覧に戻る」リンクをクリックして戻るようにして下さい。
+
+** YakiBki同梱のPEARライブラリではなく、システムにインストールされたPEARを使うには？
+
+以下の方法があります。
+- _YB('dir.pear') をシステムのPEARライブラリに合わせる。
+- _YB('dir.pear') をコメントアウトする。
+-- → PHPのinclude_path設定値に使用したいPEARライブラリへのパスが設定されている事を確認して下さい。
+
+** UTF-8ではなく、EUC-JPやSJISで使いたいのですが・・・
+
+申し訳ありません、UTF-8以外はサポートしておりません。
+
+
+** 詳細表示でタイトルが "/" で自動的に分割されリンクになるのを止めたいです。
+
+libs/config.phpの _YB('use.title_auto_ls') を "false" に設定して下さい。
+
+
+&br()
+
+----
+[ &help() ]

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title><{if $title}><{$title}> - <{/if}><{_YB key=title}></title>
+<meta http-equiv="Content-Type" content="<{_YB key=default.mime.type}>">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS(RDF Site Summary)" href="<{yb_make_url mdl=rss mode=rdf}>">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<{yb_make_url mdl=rss mode=rss2}>">
+<!--[if lt IE 7.]>
+	<script defer type="text/javascript" src="<{_YB key=url.themes}>/javascripts/pngfix.js"></script>
+<![endif]-->
+
+<style type="text/css">
+<!--
+-->
+</style>
+
+<link href="<{_YB key=url.themes}>/stylesheets/browser_filter_ie4.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="<{_YB key=url.themes}>/stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+<{if _YB('js.enable') }>
+<{if _YB('js.google.map.key') }><script type="text/javascript" src="http://www.google.com/jsapi?key=<{_YB key='js.google.map.key'}>"></script><{/if}>
+<{yb_jquery}>
+<{/if}>
+</head>
+<body>
+<!-- body start -->
+<div class="body">
+<div style="display: inline"><a name="pagetop"></a></div>
+<div id="header-wrap">
+<div id="header">
+<div id="header-login">
+<a href="<{yb_make_url}>" title="<{_YB key=title}>"><{yb_icon icon=home alt='home' title='home'}>&nbsp;<{t}>home<{/t}></a>
+<a href="<{yb_make_url mdl=search}>" title="<{t}>search<{/t}>"><{yb_icon icon=find alt='search' title='search'}>&nbsp;<{t}>search<{/t}></a>&nbsp;-&nbsp;
+<{if $user_context.id == constant('YB_GUEST_UID') }>
+<a href="<{yb_make_url mdl=login}><{if !$hide_backurl }>&amp;back=<{yb_back_url}><{/if}>"><{yb_icon icon=login alt='login'}>&nbsp;<{t}>login<{/t}></a>
+<{else}>
+<{t name="`$user_context.name`" }>welcome <strong>%name</strong>!!<{/t}> &nbsp;&nbsp;- <a href="<{yb_make_url mdl=logout}><{if !$hide_backurl }>&amp;back=<{yb_back_url}><{/if}>"><{yb_icon icon=logout alt='logout'}>&nbsp;<{t}>logout<{/t}></a> -
+<a href="<{yb_make_url mdl=profile}>" title="Edit My Profile"><{yb_icon icon=profile alt='profile' title='Edit My Profile'}></a>
+<{has_role role=sys}>&nbsp;-<a href="<{yb_make_url mdl=user}>" title="User Manager"><{yb_icon icon=user alt='user' title='User Manager'}></a><{/has_role}>
+<{has_role role=group}>&nbsp;-<a href="<{yb_make_url mdl=group}>" title="Group Manager"><{yb_icon icon=group alt='group' title='Group Manager'}></a><{/has_role}>
+<{has_role role=acl}>&nbsp;-<a href="<{yb_make_url mdl=acl}>" title="ACL Manager"><{yb_icon icon=acl alt='acl' title='ACL Manager'}></a><{/has_role}>
+<{has_role role=category}>&nbsp;-<a href="<{yb_make_url mdl=category}>" title="Category Manager"><{yb_icon icon=category alt='category' title='Category Manager'}></a><{/has_role}>
+<{has_role role=template}>&nbsp;-<a href="<{yb_make_url mdl=template}>" title="Template Manager"><{yb_icon icon=template alt='template' title='Template Manager'}></a><{/has_role}>
+<{has_role role=sys}>&nbsp;-<a href="<{yb_make_url mdl=backup}>" title="Data Backup"><{yb_icon icon=backup alt='backup' title='Data Backup'}></a><{/has_role}>
+<{/if}>
+<{if $show_edit_menu}>
+&nbsp;|
+<a href="<{yb_make_url id=$data.id mdl=view}>"><{yb_icon icon=reload alt='reload' title='reload view mode' }></a>
+<a href="<{yb_make_url id=$data.id mdl=edit}>"><{yb_icon icon=data_edit alt='edit' title='edit body data' }></a>
+<a href="<{yb_make_url id=$data.id mdl=datainfo}>"><{yb_icon icon=datainfo alt='datainfo' title='update data attributes, categories' }></a>
+<a href="<{yb_make_url id=$data.id mdl=history}>"><{yb_icon icon=history alt='version cmd icon' title='change current-version' }></a>
+<a href="<{yb_make_url id=$data.id mdl=diff}>"><{yb_icon icon=diff alt='diff' title='view diff' }></a>
+<a href="<{yb_make_url id=$data.id mdl=delete}>"><{yb_icon icon=data_delete alt='delete' title='delete' }></a>
+<{if $data.id}>
+<{has_role role=new}><a href="<{yb_make_url id=$data.id mdl=copy}>"><{yb_icon icon=copy alt='copy icon' title='copy' }></a><{/has_role}>
+<{/if}>
+<{/if}>
+&nbsp;|&nbsp;<a href="<{yb_make_url mdl=help}>" title="<{t}>help<{/t}>"><{yb_icon icon=help alt='help' title='help'}>&nbsp;<{t}>help<{/t}></a>
+</div>
+<h1 style="margin-bottom: 10px;"><{if $title_img }><{yb_icon icon=$title_img alt=$title_img width='32' }>&nbsp;<{/if}><{$title}></h1>
+<{yb_session_get_flash_info}>
+<{yb_check_setup_menu}>
+</div><!-- //header -->
+</div><!-- //header-wrap -->
+
+<!-- content-wrap start -->
+<div id="content-wrap">

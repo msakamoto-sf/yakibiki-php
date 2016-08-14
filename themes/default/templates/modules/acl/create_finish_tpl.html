@@ -1,0 +1,73 @@
+<{include file="theme:header_tpl.html" title_img="acl_add"}>
+<div class="contents_c">
+
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>new acl<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left"><{$form.html.name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>policy<{/t}></th>
+		<td align="left"><{$form.html.policy}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>users list<{/t}></th>
+		<td align="left">
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>user<{/t}></th>
+	<th><{t}>permission<{/t}></th>
+</tr>
+<tr>
+	<td class="odd" align="left"><{t}>Guest (NOT Logined) users only<{/t}></td>
+	<td class="odd" align="left"><{$form.html.spuid.guest}></td>
+</tr>
+<tr>
+	<td class="even" align="left"><{t}>Logined users only<{/t}></td>
+	<td class="even" align="left"><{$form.html.spuid.logined}></td>
+</tr>
+<{foreach from=$form.html.perms.user item=user_acl}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$user_acl.name}></td>
+	<td class="<{$tmp_class}>" align="left"><{$user_acl.perm}></td>
+</tr>
+<{/foreach}>
+</table>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>groups list<{/t}></th>
+		<td align="left">
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>group<{/t}></th>
+	<th><{t}>permission<{/t}></th>
+</tr>
+<{foreach from=$form.html.perms.group item=group_acl}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$group_acl.name}></td>
+	<td class="<{$tmp_class}>" align="left"><{$group_acl.perm}></td>
+</tr>
+<{/foreach}>
+</table>
+		</td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<a href="<{yb_xhwlay_url mdl=acl}>"><{t}>Back To List<{/t}></a>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

@@ -1,0 +1,133 @@
+// $Id: Plugin_Wiki_P-Z.txt 553 2009-07-18 04:24:26Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+
+* pre
+
+: Description :
+Displays text as formatted text with html escape.
+: File :
+yb_plugin_wiki_pre.php
+: Type :
+inline, block
+: Arguments :
+(none)
+
+ abc &pre() { * def "><&' * } ghi * jkl "><&' * mno
+----
+abc &pre() { * def "><&' * } ghi * jkl "><&' * mno
+----
+ line1 "><&'
+ #pre||>
+ &size(12px) { line2 }
+ line3 "><&'
+ line4 "><&'
+ ||<
+ line5 "><&'
+----
+line1 "><&'
+#pre||>
+&size(12px) { line2 }
+line3 "><&'
+line4 "><&'
+||<
+line5 "><&'
+
+* recent
+
+: Description :
+Displays recently updated page links.
+: File :
+yb_plugin_wiki_recent.php
+: Type :
+block
+: Arguments :
+Maximum limits of displaying pages(optional). If omitted, default is 10.
+
+ #recent||
+ ----
+ #recent|5|>
+ (ignored)
+ ||<
+
+#recent||
+----
+#recent|5|>
+(ignored)
+||<
+
+
+* size
+
+: Description :
+Change font size.
+: File :
+yb_plugin_wiki_size.php
+: Type :
+inline, block
+: Arguments :
+Font size with unit, or font-size name which are available in CSS "font-size" property.
+
+ abc &size(12px) { def ** "><&' ** } ghi
+----
+abc &size(12px) { def ** "><&' ** } ghi
+----
+ line1
+ #size|xx-large|>
+ line2 "><&'
+ line3
+ > quote1 ** "><&' **
+ > quote2
+ > quote3
+ line4
+ ||<
+ line5
+----
+line1
+#size|xx-large|>
+line2 "><&'
+line3
+> quote1 ** "><&' **
+> quote2
+> quote3
+line4
+||<
+line5
+
+* void
+
+: Description :
+"Black Hole" plugin. It may be useful like comment-out, e.t.c.
+: File :
+yb_plugin_wiki_void.php
+: Type :
+inline, block
+: Arguments :
+(none)
+
+ aaa &void() { bbb "><&' } ccc
+----
+aaa &void() { bbb "><&' } ccc
+----
+ line1
+ #void||>
+ line2 "><&'
+ line3
+ line4
+ ||<
+ line5
+----
+line1
+#void||>
+line2"><&'
+line3
+line4
+||<
+line5
+
+&br()
+
+----
+[ &help() ]

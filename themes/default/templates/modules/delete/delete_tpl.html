@@ -1,0 +1,12 @@
+<{include file="theme:header_tpl.html" title_img="data_delete" show_edit_menu=true data=$virtual}>
+<div class="contents_c">
+
+<h3><{t id=$virtual.id}>Do you realy delete Data ID: %id ?<{/t}></h3>
+<form action="<{_YB key=current_url}>" method="POST">
+<input type="hidden" name="<{$ticket_form}>" value="<{$ticket_id}>" />
+<input type="hidden" name="do_delete" value="ok" />
+<input type="submit" value="<{t}>Yes. Delete it.<{/t}>" />
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

@@ -1,0 +1,120 @@
+// $Id: ACL_Examples.txt 458 2008-11-20 13:16:06Z msakamoto-sf $
+[ &help() ]
+
+It's difficult to understand YakiBiki's ACL and its "Policy".
+Here are some actual ACL practices. When you lost in permissions and policy, see those samples.
+
+Some typical ACLs which are needed in typical Blogs and Wikis are registered in YakiBiki setup(setup.php).
+Those typical ACLs may be enough to use for personal user.
+
+#help_outline||
+----
+* "Publish"
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | Read Only |
+| Logined users only | Read Only |
+
+A typical ACL for public pages. Only page owner can edit datas.
+This ACL will meet a generic, typical Blog entry.
+
+
+* "Open Wiki"
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | Read and Edit |
+| Logined users only | Read and Edit |
+
+Any one can read and edit this page. This ACL is good when you want for various users to join page editting.
+But be careful, it will cause many troubles that non-login users can edit this page.
+
+
+* "Wiki (editable only for logined users)"
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | Read Only |
+| Logined users only | Read and Edit |
+
+This ACL will be default when you want wiki editors from a closed community.
+Non-login users can only read, not edit. Login users only can read and edit.
+
+* "Draft" (private mode)
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | non:invisible |
+
+Only page owner can read and edit. You'll use this ACL when writing secret diaries, saving pages as "draft".
+
+
+* "Public only for Group A"
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | non:invisible |
+| Group A | Read Only |
+
+Only members of Group A can read this page. You'll use this ACL when you want sharing little secret document in your groups.
+
+
+* "Public only for Group A and User X"
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | non:invisible |
+| Group A | Read Only |
+| User X | Read Only |
+
+Advance version ACL of "Public only for Group A".
+...Until here, these ACL doesn't make permission conflict. So, whether "Policy" is positive or negative doesn't matter.
+
+
+* "Public only for Group A, BUT Hide this page from User Y in Group A"
+
+| Policy | Negative Policy |
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | non:invisible |
+| Group A | Read Only |
+| User Y | non:invisible |
+
+Use "Negative Policy".
+
+Now try to descrive internal process for evaluating ACL permissions in YakiBiki.
+First, YakiBiki retrieve users who belongs to groups in ACL, and merges it to users in ACL.
+If there're three users "User X", "User Y", User Z" in Group A, result of merge and expanding will be following table.
+
+| User X | Read Only |
+| User Y | non:invisible, Read Only |
+| User Z | Read Only |
+
+"non:invisible" permission is added only to "User Y".
+Here, "Negative Policy" is applied to above table.
+Because of "Negative Policy", YakiBiki use "non:invisible" rather than "Read Only".
+Then, these users and permissions are evaluated like below :
+
+| User X | Read Only |
+| User Y | non:invisible |
+| User Z | Read Only |
+
+So, only "User Y" is applied "non:invisible" permission to, though "User Y" belongs to "Group A".
+Other users not in Group A and non-login users are applied "non:invisible" by guest and logined user permission to.
+
+
+* "Public to logined users, Group A can also edit, But Group B can't read"
+
+How pitful Group B...
+
+| Policy | Positive Policy |
+| Guest (NOT Logined) users only | non:invisible |
+| Logined users only | Read Only |
+| Group A | Read and Edit |
+| Group B | non:invisible |
+
+Because of "Positive Policy", YakiBiki applies "Read Only" permission to users who belongs to both Group A and Group B.
+Change the policty to "Negative Policy" when you want to apply "non:invisible" permission to all users who belongs to Group B,
+
+
+&br()
+
+----
+[ &help() ]

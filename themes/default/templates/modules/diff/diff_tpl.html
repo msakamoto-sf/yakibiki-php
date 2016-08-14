@@ -1,0 +1,52 @@
+<{include file="theme:header_tpl.html" title_img="diff" show_edit_menu=true data=$data}>
+<div class="contents_c" style="text-align: left;">
+
+<{yb_display_validate_errors errors=$errors}>
+
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="diff" />
+<input type="hidden" name="id" value="<{$data.id}>" />
+
+<{$diff_contents|smarty:nodefaults}>
+
+<table class="zebralist">
+<tr>
+	<th align="left" style="text-align: left;"><{t}>version<{/t}><br /><{t}>old, new<{/t}></th>
+	<th><{t}>informations<{/t}></th>
+	<th><{t}>comments<{/t}>(<{t}>changelog<{/t}>)</th>
+</tr>
+<{foreach from=$versions item=vinfo}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left">
+		<input type="radio" name="old_v" value="<{$vinfo.version}>" <{if $vinfo.version == $old_v}>checked="checked"<{/if}> />
+		<{if $data.current_version == $vinfo.id}><strong><{$vinfo.version}></strong><{else}><{$vinfo.version}><{/if}>
+		<input type="radio" name="new_v" value="<{$vinfo.version}>" <{if $vinfo.version == $new_v}>checked="checked"<{/if}> />
+	</td>
+	<td class="<{$tmp_class}>" align="left">
+		<a href="<{yb_make_url mdl=view id="`$data.id`_`$vinfo.version`" }>" title="<{t version=$vinfo.version}>view version %version data in another window<{/t}>" target="_blank">
+		<{yb_icon icon=new_window class='link'}>&nbsp; <{t}>view in another window<{/t}>
+		</a>&nbsp;&nbsp;&nbsp;
+		<{t}>updated by<{/t}> : <{yb_dao_find_by dao=user id=$vinfo.owner print=name}><br />
+		<{t}>updated at<{/t}> : <{$vinfo.updated_at|yb_strftime}><br />
+		md5 : <{$vinfo.md5}><br />
+		sha1 : <{$vinfo.sha1}><br />
+	</td>
+	<td class="<{$tmp_class}>" align="left"><pre><{$vinfo.changelog}></pre></td>
+</tr>
+<{/foreach}>
+</table>
+<br />
+<{if $data.type == "text"}>
+<select name="text_diff">
+<option value="unified" <{if $text_diff == "unified"}>selected<{/if}>><{t}>Show Unified Mode<{/t}></option>
+<option value="inline" <{if $text_diff == "inline"}>selected<{/if}>><{t}>Show Inline Mode<{/t}></option>
+<option value="context" <{if $text_diff == "context"}>selected<{/if}>><{t}>Show Context Mode<{/t}></option>
+</select>
+&nbsp;&nbsp;
+<{/if}>
+<input type="submit" value="diff" />
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

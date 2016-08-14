@@ -1,0 +1,34 @@
+<!-- searchbox start -->
+<div id="searchbox">
+<h4><{yb_icon icon=find alt='seach icon'}><{t}>search condition<{/t}></h4>
+<form action="<{yb_make_url}>" method="GET">
+<input type="hidden" name="mdl" value="search" />
+
+<fieldset>
+<legend><{t}>text match<{/t}></legend>
+<input type="text" name="s" value="<{$condition.textmatch}>" size="20"><br />
+<input type="checkbox" name="ism" value="1" <{if $condition.ism}>checked="checked"<{/if}> id="sbc_tmism" /><label for="sbc_tmism"><{t}>fullmatch<{/t}></label><br />
+<input type="checkbox" name="cs" value="1" <{if $condition.cs}>checked="checked"<{/if}> id="sbc_tmcs" /><label for="sbc_tmcs"><{t}>case sensitive<{/t}></label><br />
+</fieldset>
+
+<p>
+<{t}>combination of 'text match' and 'categories'<{/t}><br />
+<input type="radio" name="ao" value="<{yb_const var=YB_OR}>" <{if $condition.ao_or}>checked="checked"<{/if}> id="sbc_ao_or" /><label for="sbc_ao_or">OR</label>
+<input type="radio" name="ao" value="<{yb_const var=YB_AND}>" <{if $condition.ao_and}>checked="checked"<{/if}> id="sbc_ao_and" /><label for="sbc_ao_and">AND</label>
+</p>
+
+<fieldset>
+<legend><{t}>categories<{/t}></legend>
+<{foreach from=$condition.categories item=cat}>
+<input type="checkbox" name="c[]" value="<{$cat.id}>" id="sbc_<{$cat.id}>" <{if $cat.checked}>checked="checked"<{/if}> /><label for="sbc_<{$cat.id}>"><{$cat.name}></label><br />
+<{/foreach}>
+</fieldset>
+
+<input type="submit" value="<{t}>search<{/t}>" />
+
+</form>
+
+</div>
+<!-- /searchbox end -->
+
+

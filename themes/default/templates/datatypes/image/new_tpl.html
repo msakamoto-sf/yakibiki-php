@@ -1,0 +1,19 @@
+<tr>
+	<th align="right"><{t}>title<{/t}></th>
+	<td align="left">
+		<input type="text" name="title" value="<{$data.title}>" size="64" /><{yb_const var=YB_FORM_REQUIRED_MARK}><br />
+		(<{t}>'{$upload_filename}' will be replaced by actually uploaded filename automatically.<{/t}>)
+	</td>
+</tr>
+<tr>
+	<th align="right"><{t}>Select Image files<{/t}></th>
+	<td align="left">
+<input type="file" name="upfile" size="32" /><{yb_const var=YB_FORM_REQUIRED_MARK}><br />
+<{t size=$upload_max_filesize}>(max file size: %size bytes)<{/t}><br />
+<ul>
+<li><{t}>You can use ONLY next characters as file name : Alphabet, Numbers, '_'(under score), '-'(hyphen), ','(comma), '.'(dot)<{/t}></li>
+<li><{t}>You CAN'T use more than 2 dots together ('..', '...', ...) in file name.<{/t}></li>
+<li><{t maxlen=$filename_maxlen}>The length of file name MUST be lesser than equal %maxlen characters.<{/t}></li>
+</ul>
+	</td>
+</tr>

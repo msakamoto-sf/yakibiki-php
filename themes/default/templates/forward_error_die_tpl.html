@@ -1,0 +1,11 @@
+<{include file="theme:header_tpl.html" title_img="error"}>
+
+<div class="contents_c">
+
+<{if $code }>
+<h3 style="color: red;"><{t}>Error Code<{/t}>: <{$code|h}></h3>
+<{/if}>
+<h3 style="color: red;"><{$msg|h}></h3>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

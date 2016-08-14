@@ -1,0 +1,189 @@
+// $Id: Plugin_Wiki_H-O.txt 554 2009-07-18 04:38:19Z msakamoto-sf $
+[ &help() ]
+
+#help_outline||
+----
+
+* image
+
+: Description :
+Displays <img> tag.
+: File :
+yb_plugin_wiki_image.php
+: Type :
+inline
+: Arguments :
+There're some variations, see below.
+
+(1) Specifies yakibiki's uploaded image data by yakibiki's page id.
+ &image(100)
+ &image(200) { "alt" attribute text(optional) }
+
+(2) Specifies relative path to _YB('url') with 'yb://' prefix.
+ &image(yb://dir1/dir2/image01.jpg) { "alt" attribute text(optional) }
+&rarr; <img> tag which "src" is _YB('url') + 'dir1/dir2/image01.jpg'.
+
+(3) Specifies external url.
+ &image(http://example.com/image/01.jpg) { "alt" attribute text(optional) }
+
+You can also specify "width" and "height" parameters.
+ # output <img> tag which "src" is ID=100 image and "width" is "200".
+ &image(100, width=200)
+ 
+ # output <img src="https://example.com/image/01.png" height="200" />
+ &image(https://example.com/image/01.png, height=200)
+ 
+ # output <img src="_YB('url') + '/dir/image.png'" width="100" height="300" />
+ &image(yb:///dir/image.png, width=100, height=300)
+
+If you want to wrap images left or right, you can use "float" argument. You can also use "clear" block plugin.
+ # Apply style="float: left;" to <img> tag.
+ &image(yb://images/image.png, float=left)
+
+
+* ls
+
+: Description :
+Display page links which are included in "Virtual Directory".
+: File :
+yb_plugin_wiki_ls.php
+: Type :
+block
+: Arguments :
+Page name which virtual directory based on (optional). If omitted, default is current page name.
+: What's "Virtual Directory" ? :
+You can use "/" characters in page title. "Virtual Directory" is page hierarchy of page titles splitted by "/".
+
+ #ls|| : list up based on current page name.
+ #ls|page/name| : list up "page/name/*", "page/nameXXYY" pages.
+ #ls|page/name|>
+ (ignored)
+ ||< : (same).
+
+
+* more
+
+: Description :
+Contentns after "more" will be displayed ONLY in view mode, NOT ONLY in search result(list-mode).
+: File  :
+yb_plugin_wiki_more.php
+: Type :
+block
+: Arguments :
+(none)
+
+ #more||
+
+
+* navi
+
+: Description :
+Display navigation links to upper, next, previous, top pages based on virtual directory.
+: File :
+yb_plugin_wiki_navi.php
+: Type :
+block
+: Arguments :
+There're some variations, see below.
+
+(1) : Generate navigation links to NEXT, PREVIOUS pages based on "page-name" virtual directory. If "page-name" was omitted, current page title will be used as base of virtual directory.
+ #navi|page-name|
+
+(2) : With <hr>(horizon line) tag at bottom of navigation links for displaying in header position.
+ #navi|page-name|>
+ header
+ ||<
+
+(3) : With <hr>(horizon line) tag at top of navigation links for displaying in footer position.
+ #navi|page-name|>
+ footer
+ ||<
+
+Example : 
+ based on current page name : 
+ #navi||
+ 
+ based on given virtual directory : 
+ #navi|page/name/dirs|
+ 
+ with header hr tags and simple display : 
+ #navi|page/name/dirs|>
+ header
+ ||<
+ (= #navi_header|page/name/dirs|)
+ 
+ with footer hr tags and detailed display : 
+ #navi|page/name/dirs|>
+ footer
+ ||<
+ (= #navi_footer|page/name/dirs|)
+
+
+* navi_footer
+
+: Description :
+Shortcut plugin for footer version navi plugin.
+: File :
+yb_plugin_wiki_navi_footer.php
+: Type :
+block
+: Arguments :
+pagename
+
+ #navi_footer||
+ #navi_footer|page-name|
+
+
+* navi_header
+
+: Description :
+Shortcut plugin for header version navi plugin.
+: File :
+yb_plugin_wiki_navi_header.php
+: Type :
+block
+: Arguments :
+pagename
+
+ #navi_header||
+ #navi_header|page-name|
+
+
+* newcomments
+
+: Description :
+Display page links which are commented recently. You will use in side menu page, and top page.
+: File :
+yb_plugin_wiki_newcomments.php
+: Type :
+block
+: Arguments :
+Maximum displaying comments(optional). If omitted, default is 10.
+
+ #newcomments||
+ 
+ #newcomments|5|
+
+
+* outline
+
+: Description :
+Displays list of headings in current page. Each list item is a link to its heading.
+: File :
+yb_plugin_wiki_outline.php
+: Type :
+block
+: Arguments :
+Maximum heading level to display (optional). If omitted, all headings are listed.
+
+ #outline||
+&rarr; Dipslays list of all headings.
+
+ #outline|2|
+&rarr; Displays list of headings until level 2.
+
+
+&br()
+
+----
+[ &help() ]

@@ -1,0 +1,69 @@
+<{include file="theme:header_tpl.html" title_img="template_add"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<form action="<{yb_xhwlay_url mdl=template}>" method="POST">
+<{$form.html.hidden}>
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>new template<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right"><{t}>data type<{/t}></th>
+		<td align="left"><{yb_dt_datatype_label type=$virtual.type}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>name<{/t}></th>
+		<td align="left">
+			<input type="text" name="name" value="<{$virtual.name}>" size="64" /><{yb_const var=YB_FORM_REQUIRED_MARK}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>title<{/t}></th>
+		<td align="left">
+			<input type="text" name="title" value="<{$virtual.title}>" size="64" /><{yb_const var=YB_FORM_REQUIRED_MARK}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right">ACL</th>
+		<td align="left"><{yb_dt_acl_selectmenu default=$virtual.acl}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>category<{/t}></th>
+		<td align="left"><{yb_dt_categories_checkboxes default=$virtual.categories}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>moderated settings<{/t}></th>
+		<td align="left">
+			<input type="checkbox" name="is_versions_moderated" value="1" id="is_versions_moderated" <{if $virtual.is_versions_moderated}>checked="checked"<{/if}> />
+			<label for="is_versions_moderated"><{t}>version<{/t}></label><br />
+			<input type="checkbox" name="is_comments_moderated" value="1" id="is_comments_moderated" <{if $virtual.is_comments_moderated}>checked="checked"<{/if}> />
+			<label for="is_comments_moderated"><{t}>comment<{/t}></label><br />
+		</td>
+	</tr>
+
+	<{yb_dt_build_template_specific_form template=$virtual}>
+
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="_event_onCreate_Confirm" value="<{t}>confirm<{/t}>" />&nbsp;
+				<input type="reset" value="<{t}>reset<{/t}>" /><br />
+				<{yb_const var=YB_FORM_REQUIRED_MARK}><{t}>is required item.<{/t}>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</form>
+
+<br />
+<a href="<{yb_xhwlay_url mdl=template _event_=onBackToList}>"><{t}>Cancel &amp; Back To List<{/t}></a>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

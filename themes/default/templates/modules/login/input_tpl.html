@@ -1,0 +1,26 @@
+<{include file="theme:header_tpl.html" title_img="login"}>
+
+<div class="contents_c" style="text-align: center">
+
+<{if $invalid_login == true }>
+<span style="color:red;"><{t}>Login Failure!! Confirm your mail address, user name and password!!<{/t}></span>
+<{/if}>
+<form action="<{yb_xhwlay_url mdl=login}>" method="POST">
+<table class="formtable">
+<tr>
+	<th align="right"><{t}>mail address/user name<{/t}></th>
+	<td align="left"><input type="text" name="user" value="<{$f_user}>" size="48"></td>
+</tr>
+<tr>
+	<th align="right"><{t}>password<{/t}></th>
+	<td align="left"><input type="password" name="password" value="<{$f_password}>"></td>
+</tr>
+<tr>
+	<th colspan="2" align="center"><{yb_icon icon=login alt='login'}>&nbsp;<input type="submit" value="<{t}>login<{/t}>" /></th>
+</tr>
+</table>
+<input type="hidden" name="_event_" value="onLogin" />
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

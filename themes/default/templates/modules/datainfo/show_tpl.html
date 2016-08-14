@@ -1,0 +1,50 @@
+<{include file="theme:header_tpl.html" title_img="datainfo" show_edit_menu=true data=$virtual}>
+<div class="contents_c">
+
+<table class="formtable">
+	<thead>
+		<tr>
+			<th colspan="2"><{t}>detail<{/t}></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th align="right">id</th>
+		<td align="left"><{$virtual.id}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>data type<{/t}></th>
+		<td align="left"><{yb_dt_datatype_label type=$virtual.type}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>owner<{/t}></th>
+		<td align="left"><{yb_dao_find_by dao=user id=$virtual.owner print=name}></td>
+	</tr>
+	<tr>
+		<th align="right">ACL</th>
+		<td align="left"><{yb_dao_find_by dao=acl id=$virtual.acl print=name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>category<{/t}></th>
+		<td align="left"><{yb_dao_find_by dao=category id=$virtual.categories print=name}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>moderated settings<{/t}></th>
+		<td align="left">
+			<{if $virtual.is_versions_moderated}><{t}>version<{/t}><br /><{/if}>
+			<{if $virtual.is_comments_moderated}><{t}>comment<{/t}><br /><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>created at<{/t}></th>
+		<td align="left"><{$virtual.created_at|yb_strftime}></td>
+	</tr>
+	<tr>
+		<th align="right"><{t}>updated at<{/t}></th>
+		<td align="left"><{$virtual.updated_at|yb_strftime}></td>
+	</tr>
+	</tbody>
+</table>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

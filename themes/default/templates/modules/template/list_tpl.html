@@ -1,0 +1,58 @@
+<{include file="theme:header_tpl.html" title_img="template"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<form action="<{yb_xhwlay_url mdl=template _event_=onList_Create}>" method="POST">
+<{yb_icon icon=template_add width=24}>&nbsp;<{t}>Create New Template<{/t}>&nbsp;:&nbsp;
+<{yb_dt_create_template_dt_selectmenu}>
+<input type="submit" value="<{t}>create<{/t}>" />
+</form>
+
+<{yb_pager_slider_navi navi=$navi}>
+
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>template settings<{/t}></th>
+	<th><{t}>moderated settings<{/t}></th>
+	<th><{t}>created at<{/t}><br /><{t}>updated at<{/t}></th>
+	<th><{t}>operation<{/t}></th>
+</tr>
+<{foreach from=$templates item=template}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$template.id}></td>
+	<td class="<{$tmp_class}>" align="left">
+	<{t}>data type<{/t}>&nbsp;:&nbsp;<{yb_dt_datatype_label type=$template.type}><br />
+	<{t}>name<{/t}>&nbsp;:&nbsp;<{$template.name}><br />
+	<{t}>title<{/t}>&nbsp;:&nbsp;<{$template.title}><br />
+	<{t}>owner<{/t}>&nbsp;:&nbsp;<{yb_dao_find_by dao=user id=$template.owner print=name}><br />
+	ACL&nbsp;:&nbsp;<{yb_dao_find_by dao=acl id=$template.acl print=name}><br />
+	<{t}>category<{/t}>&nbsp;:&nbsp;<{yb_dao_find_by dao=category id=$template.categories print=name}>
+	</td>
+	<td class="<{$tmp_class}>" align="left">
+		<{if $template.is_versions_moderated}><{t}>version<{/t}><br /><{/if}>
+		<{if $template.is_comments_moderated}><{t}>comment<{/t}><br /><{/if}>
+	</td>
+	<td class="<{$tmp_class}>" align="left"><{$template.created_at|yb_strftime}><br><{$template.updated_at|yb_strftime}></td>
+	<td class="<{$tmp_class}>" >
+		<a href="<{yb_xhwlay_url mdl=template _event_=onList_Update id=$template.id}>" class="iconlink"><{yb_icon icon=template_edit alt='edit' width=24 class='link' title='edit' }></a>
+		&nbsp;&nbsp;
+		<a href="<{yb_xhwlay_url mdl=template _event_=onList_Delete id=$template.id}>" class="iconlink"><{yb_icon icon=template_delete alt='delete' width=24 class='link' title='delete' }></a>
+	</td>
+</tr>
+<{/foreach}>
+</table>
+
+<{yb_pager_sort_limit_navi navi=$navi}>
+
+<br />
+<form action="<{yb_xhwlay_url mdl=template _event_=onList_Create}>" method="POST">
+<{yb_icon icon=template_add width=24}>&nbsp;<{t}>Create New Template<{/t}>&nbsp;:&nbsp;
+<{yb_dt_create_template_dt_selectmenu}>
+<input type="submit" value="<{t}>create<{/t}>" />
+</form>
+
+</div>
+<{include file="theme:footer_tpl.html"}>

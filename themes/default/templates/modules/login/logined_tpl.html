@@ -1,0 +1,18 @@
+<{include file="theme:header_tpl.html" title_img="login"}>
+
+<div class="contents_c" style="text-align: center">
+
+<p>
+<{t name="`$user_context.name`" }>welcome <strong>%name</strong>!!<{/t}>
+</p>
+
+
+<h3><{t}>Login Success!!<{/t}></h3>
+
+<{if $f_back }>
+<{t}>Next, Go<{/t}> : <a href="<{$f_back}>"><{$f_back}></a>
+<{/if}>
+
+
+</div>
+<{include file="theme:footer_tpl.html"}>

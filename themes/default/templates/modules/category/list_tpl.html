@@ -1,0 +1,58 @@
+<{include file="theme:header_tpl.html" title_img="category"}>
+<div class="contents_c">
+
+<{yb_display_validate_errors errors=$validate_errors}>
+
+<fieldset>
+<legend><{yb_icon icon=category_add alt='category add icon'}>&nbsp;<{t}>Add Category<{/t}></legend>
+<form action="<{yb_xhwlay_url mdl=category}>" method="POST">
+<input type="hidden" name="uniqid" value="<{$uniqid}>" />
+<input type="text" name="name" value="" size="32" />
+<{yb_icon icon=category_add alt='category add icon'}>&nbsp;<input type="submit" name="_event_onCreate" value="<{t}>add<{/t}>" />
+</form>
+</fieldset>
+<br />
+<{yb_pager_slider_navi navi=$navi}>
+
+<form action="<{yb_xhwlay_url mdl=category}>" method="POST">
+<input type="hidden" name="uniqid" value="<{$uniqid}>" />
+<table class="zebralist" style="width: 100%">
+<tr>
+	<th align="left" style="text-align: left;">id</th>
+	<th><{t}>category name<{/t}>(<{t}>page count<{/t}>)&nbsp;/&nbsp;<{t}>owner<{/t}>(id)</th>
+	<th><{t}>operation<{/t}></th>
+</tr>
+<{foreach from=$categories item=category}>
+<{cycle values="odd, even" assign=tmp_class}>
+<tr>
+	<td class="<{$tmp_class}>" align="left"><{$category.id}></td>
+	<td class="<{$tmp_class}>" align="left">
+		<input type="text" name="name[<{$category.id}>]" value="<{$category.name}>" size="32" />
+		(<{$category.count}>)
+		&nbsp;/&nbsp;
+		<{$category.owner.name}>(<{$category.owner.id}>)
+		<!--
+		<br />
+		<{t}>created at<{/t}>&nbsp;<{$category.created_at|yb_strftime}><br />
+		<{t}>updated at<{/t}>&nbsp;<{$category.updated_at|yb_strftime}><br />
+		-->
+	</td>
+	<td class="<{$tmp_class}>" align="left">
+		<input type="radio" name="op[<{$category.id}>]" value="" checked="checked" id="op_label_<{$category.id}>_none" /><label for="op_label_<{$category.id}>_none"><{t}>no change<{/t}></label>
+		&nbsp;|&nbsp;
+		<input type="radio" name="op[<{$category.id}>]" value="update" id="op_label_<{$category.id}>_update" /><label for="op_label_<{$category.id}>_update"><{yb_icon icon=category_edit alt='category edit icon'}>&nbsp;<{t}>update<{/t}></label>
+		&nbsp;|&nbsp;
+		<input type="radio" name="op[<{$category.id}>]" <{if $category.count > 0}>disabled<{/if}> value="delete" id="op_label_<{$category.id}>_delete" /><label for="op_label_<{$category.id}>_delete"><{yb_icon icon=category_delete alt='category delete icon'}>&nbsp;<{t}>delete<{/t}></label>
+	</td>
+</tr>
+<{/foreach}>
+</table>
+<br />
+<{yb_icon icon=disk alt='save icon'}>&nbsp;<input type="submit" name="_event_onSave" value="<{t}>save<{/t}>" />&nbsp;&nbsp;
+<{yb_icon icon=arrow_undo alt='reset icon'}>&nbsp;<input type="reset" value="<{t}>reset<{/t}>" />
+</form>
+<br />
+<{yb_pager_sort_limit_navi navi=$navi}>
+
+</div>
+<{include file="theme:footer_tpl.html"}>
