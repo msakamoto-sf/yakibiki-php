@@ -61,7 +61,7 @@ $uc = yb_Session::user_context();
 $title = yb_Var::get('t');
 $_t_param = array('title' => '"' . $title . '"');
 $page_title = t('list of %title pages', $_t_param);
-$not_found = t('No pages found which name start %title.', $_t_param);
+$not_found = h(t('No pages found which name start %title.', $_t_param));
 
 if (empty($title)) {
     $html = $not_found;
